@@ -3,6 +3,7 @@
     package="no.mhl.kotdoc">
 
     <application
+        android:name=".KotDocApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotDoc">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.KotDoc.NoActionBar">
             <intent-filter>
