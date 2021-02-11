@@ -1,5 +1,6 @@
 package no.mhl.kotdoc.ui.splash
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -42,6 +43,7 @@ fun SplashScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
+                    .background(MaterialTheme.colors.primary)
             ) {
                 Text(
                     text = stringResource(id = R.string.app_name),
