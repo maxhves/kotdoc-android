@@ -19,6 +19,7 @@ import no.mhl.kotdoc.ui.Screen
 import no.mhl.kotdoc.ui.Screen.Documentation
 import java.util.concurrent.TimeUnit
 
+// region Initial Entry
 @Composable
 fun SplashScreen(
     navigateTo: (Screen) -> Unit
@@ -33,7 +34,9 @@ private fun startScreenDelay(
     delay(TimeUnit.SECONDS.toMillis(5))
     navigateTo(Documentation)
 }
+// endregion
 
+// region Main Content
 @Preview
 @Composable
 fun SplashScreen() {
@@ -54,3 +57,4 @@ fun SplashScreen() {
         }
     )
 }
+// endregion

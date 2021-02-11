@@ -1,3 +1,7 @@
 <resources>
+
+    <!-- region General -->
     <string name="app_name">KotDoc</string>
+    <!-- endregion -->
+
 </resources>
