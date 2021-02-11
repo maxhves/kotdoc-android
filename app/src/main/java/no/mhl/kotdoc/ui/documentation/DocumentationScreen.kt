@@ -90,9 +90,7 @@ private fun TabContent(
                     icon = { Icon(vectorResource(id = tabContent.section.icon)) },
                     label = { Text(tabContent.section.title) },
                     selected = selectedTabIndex == index,
-                    onClick = {
-                        updateSection(tabContent.section)
-                    },
+                    onClick = { updateSection(tabContent.section) },
                     unselectedContentColor = blackTransparent,
                     selectedContentColor = black
                 )
