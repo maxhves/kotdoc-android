@@ -4,4 +4,12 @@
     <string name="app_name">KotDoc</string>
     <!-- endregion -->
 
+    <!-- region Documentation -->
+    <string name="documentation_title">Documentation</string>
+    <!-- endregion -->
+
+    <!-- region Favorites -->
+    <string name="favorites_title">Favorites</string>
+    <!-- endregion -->
+
 </resources>
