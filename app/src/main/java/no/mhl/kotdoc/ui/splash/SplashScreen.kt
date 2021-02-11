@@ -1,12 +1,19 @@
 package no.mhl.kotdoc.ui.splash
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import no.mhl.kotdoc.R
 import no.mhl.kotdoc.ui.Screen
 import no.mhl.kotdoc.ui.Screen.Documentation
 import java.util.concurrent.TimeUnit
@@ -26,11 +33,22 @@ private fun startScreenDelay(
     navigateTo(Documentation)
 }
 
+@Preview
 @Composable
 fun SplashScreen() {
     Scaffold(
-        bodyContent = { innerPadding ->
-            Text("THIS IS THE SPALSH SCREEN")
+        bodyContent = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    modifier = Modifier.align(Alignment.Center),
+                    style = MaterialTheme.typography.h4
+                )
+            }
         }
     )
 }
