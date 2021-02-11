@@ -7,20 +7,23 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
+import no.mhl.kotdoc.ui.ScreenName.SPLASH
 import no.mhl.kotdoc.ui.ScreenName.DOCUMENTATION
 import no.mhl.kotdoc.ui.ScreenName.FAVORITES
 import no.mhl.kotdoc.ui.ScreenName.SETTINGS
 import no.mhl.kotdoc.ui.ScreenName.SEARCH
 import no.mhl.kotdoc.utils.getMutableStateOf
+import no.mhl.kotdoc.ui.Screen.Splash
 import no.mhl.kotdoc.ui.Screen.Documentation
 import no.mhl.kotdoc.ui.Screen.Favorites
 import no.mhl.kotdoc.ui.Screen.Settings
 import no.mhl.kotdoc.ui.Screen.Search
 
 // region Screens Declaration
-enum class ScreenName { DOCUMENTATION, FAVORITES, SETTINGS, SEARCH }
+enum class ScreenName { SPLASH, DOCUMENTATION, FAVORITES, SETTINGS, SEARCH }
 
 sealed class Screen(val id: ScreenName) {
+    object Splash : Screen(SPLASH)
     object Documentation : Screen(DOCUMENTATION)
     object Favorites : Screen(FAVORITES)
     object Settings : Screen(SETTINGS)
@@ -38,6 +41,7 @@ private fun Screen.toBundle(): Bundle {
 }
 
 private fun Bundle.toScreen() = when (ScreenName.valueOf(getStringOrThrow(SIS_NAME))) {
+    SPLASH -> Splash
     DOCUMENTATION -> Documentation
     FAVORITES -> Favorites
     SETTINGS -> Settings
@@ -53,7 +57,7 @@ class NavigationViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     var currentScreen: Screen by savedStateHandle.getMutableStateOf<Screen>(
         key = SIS_SCREEN,
-        default = Documentation,
+        default = Splash,
         save = { it.toBundle() },
         restore = { it.toScreen() }
     )
