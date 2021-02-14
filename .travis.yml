@@ -1,5 +1,7 @@
 language: android
-jdk: oraclejdk11
+jdk: 
+  - oraclejdk8
+  - oraclejdk11
 
 branches:
   only:
