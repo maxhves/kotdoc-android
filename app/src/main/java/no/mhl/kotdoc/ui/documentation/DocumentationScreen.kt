@@ -48,8 +48,8 @@ fun DocumentationScreen(
                 title = {
                     Text(text = stringResource(id = R.string.documentation_title))
                 },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = Color.Black,
+                backgroundColor = MaterialTheme.colors.surface,
+                contentColor = MaterialTheme.colors.onSurface,
                 elevation = 0.dp
             )
         },
@@ -83,7 +83,8 @@ private fun TabContent(
             tabContent[selectedTabIndex].content()
         }
         BottomNavigation(
-            elevation = 0.dp
+            elevation = 0.dp,
+            backgroundColor = MaterialTheme.colors.surface
         ) {
             tabContent.forEachIndexed { index, tabContent ->
                 BottomNavigationItem(
@@ -91,8 +92,8 @@ private fun TabContent(
                     label = { Text(tabContent.section.title) },
                     selected = selectedTabIndex == index,
                     onClick = { updateSection(tabContent.section) },
-                    unselectedContentColor = blackTransparent,
-                    selectedContentColor = black
+                    unselectedContentColor = MaterialTheme.colors.onBackground,
+                    selectedContentColor = MaterialTheme.colors.onSurface
                 )
             }
         }

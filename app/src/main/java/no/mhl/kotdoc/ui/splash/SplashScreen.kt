@@ -46,7 +46,7 @@ fun SplashScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
-                    .background(MaterialTheme.colors.primary)
+                    .background(MaterialTheme.colors.surface)
             ) {
                 Text(
                     text = stringResource(id = R.string.app_name),
