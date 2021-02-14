@@ -3,7 +3,7 @@ jdk: oraclejdk8
 
 branches:
   only:
-    - master
+    - main
 
 script: "./gradlew clean assembleDebug"
 
@@ -17,5 +17,3 @@ android:
 
 before_install:
   - yes | sdkmanager "platforms;android-30"
-
-
