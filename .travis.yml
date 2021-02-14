@@ -1,7 +1,5 @@
 language: android
-jdk: 
-  - openjdk8
-  - openjdk11
+jdk: openjdk8
 
 branches:
   only:
