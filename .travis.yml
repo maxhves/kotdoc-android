@@ -1,0 +1,19 @@
+language: android
+jdk: oraclejdk8
+
+branches:
+  only:
+    - master
+
+script: "./gradlew clean assembleDebug"
+
+android:
+  components:
+      - platform-tools
+      - tools
+      - build-tools-30.0.0
+      - android-30
+      - extra-android-m2repository
+
+before_install:
+  - yes | sdkmanager "platforms;android-30"
