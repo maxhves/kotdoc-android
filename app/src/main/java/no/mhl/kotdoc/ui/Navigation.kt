@@ -69,8 +69,8 @@ class NavigationViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     @MainThread
     fun onBack(): Boolean {
-        val wasHandled = currentScreen != Documentation
-        currentScreen = Documentation
+        val wasHandled = currentScreen != Home
+        currentScreen = Home
         return wasHandled
     }
 
