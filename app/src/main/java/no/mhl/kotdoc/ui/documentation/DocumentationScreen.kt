@@ -1,5 +1,7 @@
 package no.mhl.kotdoc.ui.documentation
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -17,6 +19,9 @@ import no.mhl.kotdoc.R
 import no.mhl.kotdoc.ui.Screen
 import no.mhl.kotdoc.ui.theme.black
 import no.mhl.kotdoc.ui.theme.blackTransparent
+import no.mhl.kotdoc.ui.documentation.Action.Search
+import no.mhl.kotdoc.ui.documentation.Action.Settings
+import no.mhl.kotdoc.ui.settings.SettingsScreen
 
 // region Tab Models
 enum class Sections(
@@ -28,6 +33,18 @@ enum class Sections(
 }
 
 class TabContent(val section: Sections, val content: @Composable () -> Unit)
+// endregion
+
+// region Top App Bar
+enum class Action(
+    val label: Int,
+    val icon: Int
+) {
+    Search(R.string.action_search, R.drawable.ic_search),
+    Settings(R.string.action_settings, R.drawable.ic_settings)
+}
+
+class HomeMenuItem(val action: Action, val onClick: () -> Unit)
 // endregion
 
 // region Main Content
@@ -45,16 +62,31 @@ fun DocumentationScreen(
     val tabContent = listOf(documentationSection, favoritesSection)
     val (currentSection, updateSection) = rememberSaveable { mutableStateOf(tabContent.first().section) }
 
+    val searchAction = HomeMenuItem(Search) {}
+    val settingsAction = HomeMenuItem(Settings) { navigateTo(Screen.Settings) }
+    val menuContent = listOf(searchAction, settingsAction)
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(id = R.string.documentation_title))
-                },
-                backgroundColor = MaterialTheme.colors.surface,
-                contentColor = MaterialTheme.colors.onSurface,
-                elevation = 0.dp
-            )
+                 TopAppBar(
+                     title = {
+                         Text(text = stringResource(id = R.string.documentation_title))
+                     },
+                     backgroundColor = MaterialTheme.colors.surface,
+                     contentColor = MaterialTheme.colors.onSurface,
+                     elevation = 0.dp,
+                     actions = {
+                         menuContent.forEach { menuItem ->
+                             IconButton(onClick = menuItem.onClick) {
+                                 Icon(
+                                     painter = painterResource(id = menuItem.action.icon),
+                                     contentDescription = stringResource(menuItem.action.label),
+                                     tint = MaterialTheme.colors.onSurface
+                                 )
+                             }
+                         }
+                     }
+                 )
         },
         bodyContent = {
             Box(
@@ -68,6 +100,7 @@ fun DocumentationScreen(
         }
     )
 }
+
 // endregion
 
 // region Tab Content

@@ -14,6 +14,7 @@ import no.mhl.kotdoc.ui.Screen.Search
 import no.mhl.kotdoc.ui.Screen.Settings
 import no.mhl.kotdoc.ui.Screen.Favorites
 import no.mhl.kotdoc.ui.documentation.DocumentationScreen
+import no.mhl.kotdoc.ui.settings.SettingsScreen
 import no.mhl.kotdoc.ui.splash.SplashScreen
 
 // region App Entry
@@ -39,7 +40,7 @@ private fun AppContent(navigationViewModel: NavigationViewModel) {
                 is Favorites -> {
                 }
                 is Search -> {}
-                is Settings -> {}
+                is Settings -> SettingsScreen()
             }
         }
     }

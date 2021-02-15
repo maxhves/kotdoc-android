@@ -4,6 +4,11 @@
     <string name="app_name">KotDoc</string>
     <!-- endregion -->
 
+    <!-- region Actions -->
+    <string name="action_search">Search</string>
+    <string name="action_settings">Settings</string>
+    <!-- endrgion -->
+
     <!-- region Documentation -->
     <string name="documentation_title">Documentation</string>
     <!-- endregion -->
