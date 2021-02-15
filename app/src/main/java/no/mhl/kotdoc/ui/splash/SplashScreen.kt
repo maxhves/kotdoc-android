@@ -16,7 +16,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import no.mhl.kotdoc.R
 import no.mhl.kotdoc.ui.Screen
-import no.mhl.kotdoc.ui.Screen.Documentation
 import java.util.concurrent.TimeUnit
 
 // region Initial Entry
@@ -32,7 +31,7 @@ private fun startScreenDelay(
     navigateTo: (Screen) -> Unit
 ) = CoroutineScope(Dispatchers.Main).launch {
     delay(TimeUnit.SECONDS.toMillis(5))
-    navigateTo(Documentation)
+    navigateTo(Screen.Home)
 }
 // endregion
 

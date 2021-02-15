@@ -12,18 +12,21 @@ import no.mhl.kotdoc.ui.ScreenName.DOCUMENTATION
 import no.mhl.kotdoc.ui.ScreenName.FAVORITES
 import no.mhl.kotdoc.ui.ScreenName.SETTINGS
 import no.mhl.kotdoc.ui.ScreenName.SEARCH
+import no.mhl.kotdoc.ui.ScreenName.HOME
 import no.mhl.kotdoc.utils.getMutableStateOf
 import no.mhl.kotdoc.ui.Screen.Splash
 import no.mhl.kotdoc.ui.Screen.Documentation
+import no.mhl.kotdoc.ui.Screen.Home
 import no.mhl.kotdoc.ui.Screen.Favorites
 import no.mhl.kotdoc.ui.Screen.Settings
 import no.mhl.kotdoc.ui.Screen.Search
 
 // region Screens Declaration
-enum class ScreenName { SPLASH, DOCUMENTATION, FAVORITES, SETTINGS, SEARCH }
+enum class ScreenName { SPLASH, HOME, DOCUMENTATION, FAVORITES, SETTINGS, SEARCH }
 
 sealed class Screen(val id: ScreenName) {
     object Splash : Screen(SPLASH)
+    object Home : Screen(HOME)
     object Documentation : Screen(DOCUMENTATION)
     object Favorites : Screen(FAVORITES)
     object Settings : Screen(SETTINGS)
@@ -42,6 +45,7 @@ private fun Screen.toBundle(): Bundle {
 
 private fun Bundle.toScreen() = when (ScreenName.valueOf(getStringOrThrow(SIS_NAME))) {
     SPLASH -> Splash
+    HOME -> Home
     DOCUMENTATION -> Documentation
     FAVORITES -> Favorites
     SETTINGS -> Settings
