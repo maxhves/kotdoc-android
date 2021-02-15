@@ -2,6 +2,8 @@
 
     <!-- region General -->
     <string name="app_name">KotDoc</string>
+
+    <string name="content_desc_on_back">Go back</string>
     <!-- endregion -->
 
     <!-- region Actions -->
@@ -15,6 +17,10 @@
 
     <!-- region Favorites -->
     <string name="favorites_title">Favorites</string>
+    <!-- endregion -->
+
+    <!-- region Settings -->
+    <string name="settings_title">Settings</string>
     <!-- endregion -->
 
 </resources>

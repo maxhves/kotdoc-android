@@ -32,12 +32,19 @@ private fun AppContent(navigationViewModel: NavigationViewModel) {
     Crossfade(navigationViewModel.currentScreen) { screen ->
         Surface(color = MaterialTheme.colors.background) {
             when (screen) {
-                is Splash -> SplashScreen(navigateTo = navigationViewModel::navigateTo)
-                is Home -> HomeScreen(navigateTo = navigationViewModel::navigateTo)
+                is Splash -> SplashScreen(
+                    navigateTo = navigationViewModel::navigateTo
+                )
+                is Home -> HomeScreen(
+                    navigateTo = navigationViewModel::navigateTo
+                )
                 is Documentation -> DocumentationScreen()
                 is Favorites -> FavoritesScreen()
                 is Search -> {}
-                is Settings -> SettingsScreen()
+                is Settings -> SettingsScreen(
+                    navigateTo = navigationViewModel::navigateTo,
+                    onBack = { navigationViewModel.onBack() }
+                )
             }
         }
     }
