@@ -4,9 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -40,7 +43,7 @@ fun DocumentationScreen(
     }
 
     val tabContent = listOf(documentationSection, favoritesSection)
-    val (currentSection, updateSection) = savedInstanceState { tabContent.first().section }
+    val (currentSection, updateSection) = rememberSaveable { mutableStateOf(tabContent.first().section) }
 
     Scaffold(
         topBar = {
@@ -88,7 +91,7 @@ private fun TabContent(
         ) {
             tabContent.forEachIndexed { index, tabContent ->
                 BottomNavigationItem(
-                    icon = { Icon(vectorResource(id = tabContent.section.icon)) },
+                    icon = { Icon(painter = painterResource(id = tabContent.section.icon), contentDescription = "") },
                     label = { Text(tabContent.section.title) },
                     selected = selectedTabIndex == index,
                     onClick = { updateSection(tabContent.section) },
