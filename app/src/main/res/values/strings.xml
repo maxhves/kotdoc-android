@@ -21,6 +21,12 @@
 
     <!-- region Settings -->
     <string name="settings_title">Settings</string>
+    <string name="setting_theme">Theme</string>
+    <string name="setting_about">About</string>
+    <string name="setting_tpl">Third Party Libraries</string>
+    <string name="setting_feedback">Feedback</string>
+    <string name="setting_group_general">General</string>
+    <string name="setting_group_information">Information</string>
     <!-- endregion -->
 
 </resources>
