@@ -21,9 +21,10 @@ This project makes use of the following MAD (Modern Android Development) feature
 
 Whilst this project is currently in active development, a few preview images are available; 
 
-| Home | Settings |
-| ------ | ------ |
-| ![](https://raw.githubusercontent.com/MaxHvesser/kotdoc-android/main/images/home_framed.png) | ![](https://raw.githubusercontent.com/MaxHvesser/kotdoc-android/main/images/settings_framed.png) |
+<p align="center">
+  <img src ="https://raw.githubusercontent.com/MaxHvesser/kotdoc-android/main/images/home_framed.png" width="300">
+  <img src ="https://raw.githubusercontent.com/MaxHvesser/kotdoc-android/main/images/settings_framed.png" width="300">
+</p>
 
 **Download**
 
