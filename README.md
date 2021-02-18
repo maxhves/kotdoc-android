@@ -1,3 +1,8 @@
+<p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin-logo.svg" width="20">
+  <img src="https://source.android.com/setup/images/Android_symbol_green_RGB.svg" width="65">
+</p>
+
 ### KotDoc
 
 KotDoc is a small consumer of the [Official Kotlin Language documentation](https://kotlinlang.org/docs/home.html), wrapped in an Android App format. The documentation is fetched from the [Kotlin GitHub Repository](https://github.com/JetBrains/kotlin-web-site/tree/master/pages/docs/reference) and parsed into conventional lists/screens. Content is provided as-is and is not curated by the author of this repository.
