@@ -1,14 +1,10 @@
-<img
-      src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin-logo.svg"
-      height="60">
-
-## KotDoc
+### KotDoc
 
 KotDoc is a small consumer of the [Official Kotlin Language documentation](https://kotlinlang.org/docs/home.html), wrapped in an Android App format. The documentation is fetched from the [Kotlin GitHub Repository](https://github.com/JetBrains/kotlin-web-site/tree/master/pages/docs/reference) and parsed into conventional lists/screens. Content is provided as-is and is not curated by the author of this repository.
 
 This app serves as a mobile friendly way to peruse the Kotlin documentation, considering the offical docs are not provided in a mobile format. 
 
-**Features**
+#### Features
 
 This project makes use of the following MAD (Modern Android Development) features/APIs;
 
@@ -17,23 +13,23 @@ This project makes use of the following MAD (Modern Android Development) feature
 - Coroutines
 - Room
 
-**Preview Images**
+#### Preview Images
 
 Whilst this project is currently in active development, a few preview images are available; 
 
-<p align="center">
+<p align="left">
   <img src ="https://raw.githubusercontent.com/MaxHvesser/kotdoc-android/main/images/home_framed.png" width="300">
   <img src ="https://raw.githubusercontent.com/MaxHvesser/kotdoc-android/main/images/settings_framed.png" width="300">
 </p>
 
-**Download**
+#### Download
 
 The app is available to download through one of two options;
 
-- Play Store [TBA]
-- Releases [TBA]
+- Play Store
+- Releases
 
-**License** 
+#### License
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
