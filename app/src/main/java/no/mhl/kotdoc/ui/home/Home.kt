@@ -47,7 +47,7 @@ fun Home(
                 elevation = 0.dp,
                 actions = {
                     actions.forEach { action ->
-                        IconButton(onClick = {
+                        IconButton({
                             when (action) {
                                 DocMenuActions.SEARCH -> {}
                                 DocMenuActions.SETTINGS -> openSettings()
