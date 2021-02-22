@@ -43,6 +43,11 @@ android {
 
 dependencies {
 
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
     // Kotlin Core
     implementation "androidx.core:core-ktx:$ktx_core_version"
 
@@ -57,11 +62,6 @@ dependencies {
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-
-    // Testing
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Navigation
     implementation "androidx.navigation:navigation-compose:$navigation_version"
