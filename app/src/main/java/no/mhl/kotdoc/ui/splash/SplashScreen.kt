@@ -30,7 +30,7 @@ fun SplashScreen(
 private fun startScreenDelay(
     navigateTo: (Screen) -> Unit
 ) = CoroutineScope(Dispatchers.Main).launch {
-    delay(TimeUnit.SECONDS.toMillis(5))
+    delay(TimeUnit.SECONDS.toMillis(2))
     navigateTo(Screen.Home)
 }
 // endregion
