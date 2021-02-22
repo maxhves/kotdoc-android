@@ -9,36 +9,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.ui.Screen
 import java.util.concurrent.TimeUnit
 
-// region Initial Entry
-@Composable
-fun SplashScreen(
-    navigateTo: (Screen) -> Unit
-) {
-    startScreenDelay(navigateTo)
-    SplashScreen()
-}
-
-private fun startScreenDelay(
-    navigateTo: (Screen) -> Unit
-) = CoroutineScope(Dispatchers.Main).launch {
-    delay(TimeUnit.SECONDS.toMillis(2))
-    navigateTo(Screen.Home)
-}
-// endregion
-
 // region Main Content
-@Preview
 @Composable
-fun SplashScreen() {
+fun Splash(
+    splashComplete: () -> Unit
+) {
+    startScreenDelay(splashComplete)
+
     Scaffold(
         bodyContent = {
             Box(
@@ -55,5 +39,14 @@ fun SplashScreen() {
             }
         }
     )
+}
+// endregion
+
+// region Initial Entry
+private fun startScreenDelay(
+    splashComplete: () -> Unit
+) = CoroutineScope(Dispatchers.Main).launch {
+    delay(TimeUnit.SECONDS.toMillis(2))
+    splashComplete()
 }
 // endregion

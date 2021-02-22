@@ -1,27 +1,17 @@
 package no.mhl.kotdoc.ui
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.setContent
-import no.mhl.kotdoc.KotDocApplication
+import androidx.core.view.WindowCompat
 
 class MainActivity : AppCompatActivity() {
-
-    private val navigationViewModel by viewModels<NavigationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appContainer = (application as KotDocApplication).container
         setContent {
-            KotDocApp(appContainer, navigationViewModel)
-        }
-    }
-
-    override fun onBackPressed() {
-        if (navigationViewModel.onBack().not()) {
-            super.onBackPressed()
+            KotDocApp(onBackPressedDispatcher)
         }
     }
 

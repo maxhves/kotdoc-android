@@ -16,7 +16,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.ui.Screen
 import no.mhl.kotdoc.ui.settings.model.Group
 import no.mhl.kotdoc.ui.settings.model.Setting
 import no.mhl.kotdoc.ui.theme.cerulean
@@ -26,9 +25,8 @@ import no.mhl.kotdoc.ui.theme.sorbus
 
 // region Main Content
 @Composable
-fun SettingsScreen(
-    navigateTo: (Screen) -> Unit,
-    onBack: () -> Unit
+fun Settings(
+    upPress: () -> Unit
 ) {
     val settings = listOf(
         Group(
@@ -55,7 +53,7 @@ fun SettingsScreen(
                 contentColor = MaterialTheme.colors.onSurface,
                 elevation = 0.dp,
                 navigationIcon = {
-                    IconButton(onBack) {
+                    IconButton(upPress) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = stringResource(R.string.content_desc_on_back),
