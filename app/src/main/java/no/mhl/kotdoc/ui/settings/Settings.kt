@@ -65,7 +65,7 @@ fun Settings(
                 navigationIcon = {
                     IconButton(upPress) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_back),
+                            painter = painterResource(R.drawable.ic_back),
                             contentDescription = stringResource(R.string.content_desc_on_back),
                             tint = MaterialTheme.colors.onSurface
                         )

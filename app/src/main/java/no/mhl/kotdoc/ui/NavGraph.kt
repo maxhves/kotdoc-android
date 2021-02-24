@@ -62,7 +62,7 @@ fun NavGraph(startDestination: String = MainDestinations.SPLASH_ROUTE) {
             Settings(actions.selectSetting, actions.upPress)
         }
         composable(MainDestinations.SETTINGS_DETAIL_ROUTE) {
-            SettingDetail()
+            SettingDetail(actions.upPress)
         }
     }
 }
