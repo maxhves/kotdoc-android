@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import no.mhl.kotdoc.ui.home.Home
 import no.mhl.kotdoc.ui.settings.Settings
+import no.mhl.kotdoc.ui.settings.detail.SettingDetail
 import no.mhl.kotdoc.ui.splash.Splash
 
 /**
@@ -15,6 +16,7 @@ object MainDestinations {
     const val SPLASH_ROUTE = "splash"
     const val HOME_ROUTE = "home"
     const val SETTINGS_ROUTE = "settings"
+    const val SETTINGS_DETAIL_ROUTE = "setting"
 }
 
 /**
@@ -28,6 +30,9 @@ class MainActions(navController: NavHostController) {
     val openSettings: () -> Unit = {
        navController.navigate(MainDestinations.SETTINGS_ROUTE)
     }
+    val selectSetting: (Settings) -> Unit = {
+        navController.navigate(MainDestinations.SETTINGS_DETAIL_ROUTE)
+    }
     val upPress: () -> Unit = {
         navController.navigateUp()
     }
@@ -39,22 +44,25 @@ fun NavGraph(startDestination: String = MainDestinations.SPLASH_ROUTE) {
     val actions = remember(navController) { MainActions(navController) }
 
     NavHost(
-        navController = navController,
-        startDestination = startDestination
+        navController,
+        startDestination
     ) {
         // Splash
         composable(MainDestinations.SPLASH_ROUTE) {
-            Splash(splashComplete = actions.splashComplete)
+            Splash(actions.splashComplete)
         }
 
         // Home
         composable(MainDestinations.HOME_ROUTE) {
-            Home(openSettings = actions.openSettings)
+            Home(actions.openSettings)
         }
 
         // Settings
         composable(MainDestinations.SETTINGS_ROUTE) {
-            Settings(upPress = actions.upPress)
+            Settings(actions.selectSetting, actions.upPress)
+        }
+        composable(MainDestinations.SETTINGS_DETAIL_ROUTE) {
+            SettingDetail()
         }
     }
 }
