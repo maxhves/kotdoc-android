@@ -8,15 +8,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.mhl.kotdoc.R
+import no.mhl.kotdoc.ui.settings.Settings
 
 @Composable
 fun SettingDetail(
+    settingId: Int,
     upPress: () -> Unit
 ) {
+    val setting = Settings.fromId(settingId)
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Detail") },
+                title = { Text(stringResource(setting.label)) },
                 backgroundColor = MaterialTheme.colors.surface,
                 contentColor = MaterialTheme.colors.onSurface,
                 elevation = 0.dp,
@@ -32,6 +36,31 @@ fun SettingDetail(
             )
         }
     ) {
-        Text(text = "Settings Detail Screen", modifier = Modifier.padding(16.dp))
+        when (setting) {
+            Settings.THEME -> Theme()
+            Settings.ABOUT -> About()
+            Settings.LIBRARIES -> Libraries()
+            Settings.FEEDBACK -> Feedback()
+        }
     }
+}
+
+@Composable
+fun Theme() {
+    Text("Theme setting goes here", modifier = Modifier.padding(16.dp))
+}
+
+@Composable
+fun About() {
+    Text("About setting goes here", modifier = Modifier.padding(16.dp))
+}
+
+@Composable
+fun Libraries() {
+    Text("Library setting goes here", modifier = Modifier.padding(16.dp))
+}
+
+@Composable
+fun Feedback() {
+    Text("Feedback setting goes here", modifier = Modifier.padding(16.dp))
 }

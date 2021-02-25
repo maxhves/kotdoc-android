@@ -29,14 +29,20 @@ import no.mhl.kotdoc.ui.settings.Settings.LIBRARIES
 import no.mhl.kotdoc.ui.settings.Settings.FEEDBACK
 
 enum class Settings(
+    val id: Int,
     @StringRes val label: Int,
     @DrawableRes val icon: Int,
     val iconTint: Color
 ) {
-    THEME(R.string.setting_theme, R.drawable.ic_theme, mediumPurple),
-    ABOUT(R.string.setting_about, R.drawable.ic_about, cerulean),
-    LIBRARIES(R.string.setting_tpl, R.drawable.ic_book, fuchsiaPink),
-    FEEDBACK(R.string.setting_feedback, R.drawable.ic_feedback, sorbus)
+    THEME(1, R.string.setting_theme, R.drawable.ic_theme, mediumPurple),
+    ABOUT(2, R.string.setting_about, R.drawable.ic_about, cerulean),
+    LIBRARIES(3, R.string.setting_tpl, R.drawable.ic_book, fuchsiaPink),
+    FEEDBACK(4, R.string.setting_feedback, R.drawable.ic_feedback, sorbus);
+
+    companion object {
+        fun fromId(id: Int): Settings = values().first { it.id == id }
+    }
+
 }
 
 data class SettingGroup(
@@ -52,7 +58,7 @@ private val settings = listOf(
 // region Main Content
 @Composable
 fun Settings(
-    selectSetting: (Settings) -> Unit,
+    selectSetting: (Int) -> Unit,
     upPress: () -> Unit
 ) {
     Scaffold(
@@ -97,12 +103,12 @@ fun Settings(
 @Composable
 private fun SettingListItem(
     setting: Settings,
-    selectSetting: (Settings) -> Unit
+    selectSetting: (Int) -> Unit
 ) {
     Box(Modifier
         .background(MaterialTheme.colors.surface)
         .fillMaxWidth()
-        .clickable { selectSetting(setting) }
+        .clickable { selectSetting(setting.id) }
         .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
