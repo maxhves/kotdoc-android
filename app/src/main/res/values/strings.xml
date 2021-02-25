@@ -29,4 +29,8 @@
     <string name="setting_group_information">Information</string>
     <!-- endregion -->
 
+    <!-- region Search -->
+    <string name="search_title">Search</string>
+    <!-- endregion -->
+
 </resources>

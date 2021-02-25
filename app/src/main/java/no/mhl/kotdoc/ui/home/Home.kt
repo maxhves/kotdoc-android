@@ -32,7 +32,8 @@ private enum class DocMenuActions(
 // region Main Content
 @Composable
 fun Home(
-    openSettings: () -> Unit
+    openSettings: () -> Unit,
+    openSearch: () -> Unit
 ) {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(DocTabs.DOCUMENTATION) }
     val tabs = DocTabs.values()
@@ -49,7 +50,7 @@ fun Home(
                     actions.forEach { action ->
                         IconButton({
                             when (action) {
-                                DocMenuActions.SEARCH -> {}
+                                DocMenuActions.SEARCH -> openSearch()
                                 DocMenuActions.SETTINGS -> openSettings()
                             }
                         }

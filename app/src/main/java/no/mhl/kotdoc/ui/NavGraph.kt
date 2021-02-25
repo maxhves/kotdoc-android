@@ -6,11 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import no.mhl.kotdoc.ui.MainDestinations.HOME_ROUTE
+import no.mhl.kotdoc.ui.MainDestinations.SEARCH_ROUTE
 import no.mhl.kotdoc.ui.MainDestinations.SETTINGS_DETAIL_ROUTE
 import no.mhl.kotdoc.ui.MainDestinations.SETTINGS_DETAIL_SETTING_KEY
 import no.mhl.kotdoc.ui.MainDestinations.SETTINGS_ROUTE
 import no.mhl.kotdoc.ui.MainDestinations.SPLASH_ROUTE
 import no.mhl.kotdoc.ui.home.Home
+import no.mhl.kotdoc.ui.search.Search
 import no.mhl.kotdoc.ui.settings.Settings
 import no.mhl.kotdoc.ui.settings.detail.SettingDetail
 import no.mhl.kotdoc.ui.splash.Splash
@@ -20,10 +22,14 @@ import no.mhl.kotdoc.ui.splash.Splash
  */
 object MainDestinations {
     const val SPLASH_ROUTE = "splash"
+
     const val HOME_ROUTE = "home"
+
     const val SETTINGS_ROUTE = "settings"
     const val SETTINGS_DETAIL_ROUTE = "setting"
     const val SETTINGS_DETAIL_SETTING_KEY = "setting"
+
+    const val SEARCH_ROUTE = "search"
 }
 
 /**
@@ -32,13 +38,16 @@ object MainDestinations {
 class MainActions(navController: NavHostController) {
     val splashComplete: () -> Unit = {
         navController.popBackStack()
-        navController.navigate(MainDestinations.HOME_ROUTE)
+        navController.navigate(HOME_ROUTE)
     }
     val openSettings: () -> Unit = {
-       navController.navigate(MainDestinations.SETTINGS_ROUTE)
+       navController.navigate(SETTINGS_ROUTE)
     }
     val selectSetting: (Int) -> Unit = { id: Int ->
-        navController.navigate("${MainDestinations.SETTINGS_DETAIL_ROUTE}/$id")
+        navController.navigate("${SETTINGS_DETAIL_ROUTE}/$id")
+    }
+    val openSearch: () -> Unit = {
+        navController.navigate(SEARCH_ROUTE)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()
@@ -61,7 +70,7 @@ fun NavGraph(startDestination: String = MainDestinations.SPLASH_ROUTE) {
 
         // Home
         composable(HOME_ROUTE) {
-            Home(actions.openSettings)
+            Home(actions.openSettings, actions.openSearch)
         }
 
         // Settings
@@ -77,6 +86,11 @@ fun NavGraph(startDestination: String = MainDestinations.SPLASH_ROUTE) {
                 arguments.getInt(SETTINGS_DETAIL_SETTING_KEY),
                 actions.upPress
             )
+        }
+
+        // Search
+        composable(SEARCH_ROUTE) {
+            Search(actions.upPress)
         }
     }
 }
