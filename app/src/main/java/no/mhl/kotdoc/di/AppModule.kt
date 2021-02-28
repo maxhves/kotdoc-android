@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import no.mhl.kotdoc.data.Constants
 import no.mhl.kotdoc.data.remote.DocService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -16,7 +17,7 @@ object AppModule {
 
     // region Base URL
     @Provides
-    fun provideBaseUrl(): String = ""
+    fun provideBaseUrl(): String = Constants.baseUrl
     // endregion
 
     // region OkHttp
