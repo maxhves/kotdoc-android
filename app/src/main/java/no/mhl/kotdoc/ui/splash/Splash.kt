@@ -23,22 +23,20 @@ fun Splash(
 ) {
     startScreenDelay(splashComplete)
 
-    Scaffold(
-        bodyContent = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .background(MaterialTheme.colors.surface)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.app_name),
-                    modifier = Modifier.align(Alignment.Center),
-                    style = MaterialTheme.typography.h4
-                )
-            }
+    Scaffold {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(MaterialTheme.colors.surface)
+        ) {
+            Text(
+                text = stringResource(id = R.string.app_name),
+                modifier = Modifier.align(Alignment.Center),
+                style = MaterialTheme.typography.h4
+            )
         }
-    )
+    }
 }
 // endregion
 

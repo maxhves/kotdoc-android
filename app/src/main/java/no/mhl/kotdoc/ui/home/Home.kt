@@ -75,7 +75,7 @@ fun Home(
                         label = { Text(stringResource(tab.title)) },
                         selected = tab == selectedTab,
                         onClick = { setSelectedTab(tab) },
-                        alwaysShowLabels = false,
+                        alwaysShowLabel = false,
                         selectedContentColor = MaterialTheme.colors.onSurface,
                         unselectedContentColor = MaterialTheme.colors.onBackground
                     )

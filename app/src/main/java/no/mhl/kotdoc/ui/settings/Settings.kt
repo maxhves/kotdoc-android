@@ -78,24 +78,23 @@ fun Settings(
                     }
                 }
             )
-        },
-        bodyContent = {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-            ) {
-                LazyColumn {
-                    items(settings) { data ->
-                        GroupListItem(stringResource(data.heading))
-                        data.settings.forEach { setting ->
-                            SettingListItem(setting, selectSetting)
-                        }
+        }
+    ) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+            LazyColumn {
+                items(settings) { data ->
+                    GroupListItem(stringResource(data.heading))
+                    data.settings.forEach { setting ->
+                        SettingListItem(setting, selectSetting)
                     }
                 }
             }
         }
-    )
+    }
 }
 // endregion
 
