@@ -41,7 +41,7 @@ fun Home(
     val actions = DocMenuActions.values()
 
     // TODO Remove test code below
-    
+
 
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
