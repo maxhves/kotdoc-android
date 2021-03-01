@@ -11,18 +11,8 @@ class DocRepository @Inject constructor(
     private val docService: DocService
 ) {
 
-    fun getRemoteFile(fileName: String) {
-        docService.getMarkdownForFile(fileName).enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // On failure
-                val t = call
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                // On response
-                val t = call
-            }
-        })
+    suspend fun getRemoteFile(fileName: String): ResponseBody {
+        return docService.getMarkdownForFile(fileName)
     }
 
 }

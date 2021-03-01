@@ -10,6 +10,6 @@ interface DocService {
 
     @Streaming
     @GET
-    fun getMarkdownForFile(@Url file: String): Call<ResponseBody>
+    suspend fun getMarkdownForFile(@Url file: String): ResponseBody
 
 }
