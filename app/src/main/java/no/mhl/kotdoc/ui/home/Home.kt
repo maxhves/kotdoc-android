@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import no.mhl.kotdoc.R
 
 private enum class DocTabs(
@@ -33,14 +32,16 @@ private enum class DocMenuActions(
 // region Main Content
 @Composable
 fun Home(
+    model: HomeViewModel,
     openSettings: () -> Unit,
     openSearch: () -> Unit
 ) {
-    val model = viewModel(HomeViewModel::class.java)
-
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(DocTabs.DOCUMENTATION) }
     val tabs = DocTabs.values()
     val actions = DocMenuActions.values()
+
+    // TODO Remove test code below
+    model.testGetFile()
 
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,

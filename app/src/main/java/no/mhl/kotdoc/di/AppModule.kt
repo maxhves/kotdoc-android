@@ -9,6 +9,7 @@ import no.mhl.kotdoc.data.remote.DocService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +24,7 @@ object AppModule {
     // region OkHttp
     @Singleton
     @Provides
-    fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
     // endregion
 
     // region Retrofit
@@ -39,7 +40,7 @@ object AppModule {
     // region Documentation Service
     @Singleton
     @Provides
-    fun provideDocService(retrofit: Retrofit): DocService = retrofit.create(DocService::class.java)
+    fun provideDocService(retrofit: Retrofit): DocService = retrofit.create()
     // endregion
 
 }

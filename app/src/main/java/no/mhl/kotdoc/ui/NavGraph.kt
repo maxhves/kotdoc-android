@@ -12,6 +12,7 @@ import no.mhl.kotdoc.ui.MainDestinations.SETTINGS_DETAIL_SETTING_KEY
 import no.mhl.kotdoc.ui.MainDestinations.SETTINGS_ROUTE
 import no.mhl.kotdoc.ui.MainDestinations.SPLASH_ROUTE
 import no.mhl.kotdoc.ui.home.Home
+import no.mhl.kotdoc.ui.home.HomeViewModel
 import no.mhl.kotdoc.ui.search.Search
 import no.mhl.kotdoc.ui.settings.Settings
 import no.mhl.kotdoc.ui.settings.detail.SettingDetail
@@ -55,7 +56,10 @@ class MainActions(navController: NavHostController) {
 }
 
 @Composable
-fun NavGraph(startDestination: String = MainDestinations.SPLASH_ROUTE) {
+fun NavGraph(
+    homeViewModel: HomeViewModel,
+    startDestination: String = SPLASH_ROUTE
+) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
@@ -70,7 +74,7 @@ fun NavGraph(startDestination: String = MainDestinations.SPLASH_ROUTE) {
 
         // Home
         composable(HOME_ROUTE) {
-            Home(actions.openSettings, actions.openSearch)
+            Home(homeViewModel, actions.openSettings, actions.openSearch)
         }
 
         // Settings

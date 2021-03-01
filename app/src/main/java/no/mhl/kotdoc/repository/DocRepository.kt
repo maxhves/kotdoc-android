@@ -7,9 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class DocRepository
-@Inject
-constructor(
+class DocRepository @Inject constructor(
     private val docService: DocService
 ) {
 
