@@ -28,6 +28,8 @@ object Libs {
             const val material = "androidx.compose.material:material:$version"
             const val tooling = "androidx.compose.ui:ui-tooling:$version"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
+            const val runtime = "androidx.compose.runtime:runtime:$version"
+            const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata:$version"
         }
 
         object Lifecycle {
