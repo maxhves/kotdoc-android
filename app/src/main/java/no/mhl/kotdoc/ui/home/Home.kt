@@ -2,16 +2,29 @@ package no.mhl.kotdoc.ui.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
+import no.mhl.kotdoc.ui.utils.H2
+import no.mhl.kotdoc.ui.utils.H3
+import no.mhl.kotdoc.ui.utils.parseMarkdown
 
 private enum class DocTabs(
     @StringRes val title: Int,
@@ -41,16 +54,17 @@ fun Home(
     val actions = DocMenuActions.values()
 
     // TODO Remove test code below
+    val doc by model.testGetFile().observeAsState()
 
+    val elements = parseMarkdown(doc?.charStream())
 
 
     Scaffold(
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = MaterialTheme.colors.surface,
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(selectedTab.title)) },
                 backgroundColor = MaterialTheme.colors.surface,
-                elevation = 0.dp,
                 actions = {
                     actions.forEach { action ->
                         IconButton({
@@ -87,12 +101,42 @@ fun Home(
                 }
             }
         }
-    ) {
-        val modifier = Modifier.padding(16.dp)
-        when (selectedTab) {
-            DocTabs.DOCUMENTATION -> Documentation(modifier)
-            DocTabs.FAVORITES -> Favorites(modifier)
+    ) { innerPadding ->
+        val modifier = Modifier
+            .padding(16.dp)
+            .padding(innerPadding)
+
+        LazyColumn(
+            modifier = modifier
+        ) {
+            items(elements) { element ->
+                when (element) {
+                    is H2 -> H2Text(element.content)
+                    is H3 -> H3Text(element.content)
+                    else -> BodyText(element.content)
+                }
+            }
         }
+
+//        when (selectedTab) {
+//            DocTabs.DOCUMENTATION -> Documentation(modifier)
+//            DocTabs.FAVORITES -> Favorites(modifier)
+//        }
     }
 }
 // endregion
+
+@Composable
+fun H2Text(text: String) {
+    Text(text = text, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+}
+
+@Composable
+fun H3Text(text: String) {
+    Text(text = text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+}
+
+@Composable
+fun BodyText(text: String) {
+    Text(text = text, fontSize = 14.sp, fontWeight = FontWeight.Normal)
+}
