@@ -11,6 +11,8 @@ data class H2(override var content: String) : Element(content)
 data class H3(override var content: String) : Element(content)
 data class NewLine(override var content: String) : Element(content)
 data class Bullet(override var content: String) : Element(content)
+data class Info(override var content: String): Element(content)
+data class CodeBlock(override var content: String, var complete: Boolean) : Element(content)
 
 fun parseMarkdown(reader: Reader?): List<Element> {
     if (reader == null) return emptyList()
@@ -18,6 +20,26 @@ fun parseMarkdown(reader: Reader?): List<Element> {
     val elements = mutableListOf<Element>()
 
     reader.readLines().forEachIndexed { index, line ->
+
+        if (elements.lastIndex > -1) {
+            val element = elements[elements.lastIndex]
+            if (element is CodeBlock) {
+                if (element.complete.not()) {
+                    if (line.startsWith("```")) {
+                        (elements[elements.lastIndex] as CodeBlock).complete = true
+                    } else {
+                        //elements[elements.lastIndex].content +=  "\n$line"
+                        if (element.content == "") {
+                            element.content += line
+                        } else {
+                            element.content += "\n$line"
+                        }
+                    }
+                    return@forEachIndexed
+                }
+            }
+        }
+
         if (line.startsWith("[//]: #")) {
             return@forEachIndexed
         } else if (line.startsWith("## ")) {
@@ -28,6 +50,14 @@ fun parseMarkdown(reader: Reader?): List<Element> {
             elements.add(NewLine(line))
         } else if (line.startsWith("*")) {
             elements.add(Bullet(line.replace("*", "\u2022")))
+        } else if (line.startsWith(">")) {
+            if (elements[elements.lastIndex] is Info) {
+                elements[elements.lastIndex].content += " ${line.replace(">", "")}"
+            } else {
+                elements.add(Info(line.replace(">", "")))
+            }
+        } else if (line.startsWith("```")) {
+            elements.add(CodeBlock("", false))
         } else {
             if (elements[elements.lastIndex] is NewLine) {
                 elements.add(Element(line))
