@@ -145,7 +145,10 @@ fun H3Text(text: String) {
 
 @Composable
 fun BodyText(text: String) {
-    Text(text = text, fontSize = 14.sp, fontWeight = FontWeight.Normal)
+    val textReplaced = text.replace(Regex("`[a-zA-Z()@-]*`")) {
+        "%${it.value.replace("`", "")}%"
+    }
+    Text(text = textReplaced, fontSize = 14.sp, fontWeight = FontWeight.Normal)
 }
 
 @Composable
