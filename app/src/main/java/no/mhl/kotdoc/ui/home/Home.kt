@@ -22,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.Paragraph
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,9 @@ import no.mhl.kotdoc.R
 import no.mhl.kotdoc.ui.theme.mediumPurple
 import no.mhl.kotdoc.ui.theme.sorbus
 import no.mhl.kotdoc.ui.utils.*
+import org.commonmark.parser.Parser
+import org.w3c.dom.Document
+import org.w3c.dom.Node
 
 private enum class DocTabs(
     @StringRes val title: Int,
@@ -61,7 +66,26 @@ fun Home(
     // TODO Remove test code below
     val doc by model.testGetFile().observeAsState()
 
-    val elements = parseMarkdown(doc?.charStream())
+    val test = doc?.string()
+
+    test?.let {
+        val list = mutableListOf<org.commonmark.node.Node>()
+
+        val parser = Parser.builder().build()
+        val root = parser.parse(it)
+
+        var child = root.firstChild
+        while (child != null) {
+            list.add(child)
+            child = child.next
+        }
+
+        val t = list
+    }
+
+
+
+    //val elements = parseMarkdown(doc?.charStream())
 
 
     Scaffold(
@@ -114,15 +138,15 @@ fun Home(
         LazyColumn(
             modifier = modifier
         ) {
-            items(elements) { element ->
-                when (element) {
-                    is H2 -> H2Text(element.content)
-                    is H3 -> H3Text(element.content)
-                    is Info -> InfoBox(element.content)
-                    is CodeBlock -> CodeBox(element.content)
-                    else -> BodyText(element.content)
-                }
-            }
+//            items(elements) { element ->
+//                when (element) {
+//                    is H2 -> H2Text(element.content)
+//                    is H3 -> H3Text(element.content)
+//                    is Info -> InfoBox(element.content)
+//                    is CodeBlock -> CodeBox(element.content)
+//                    else -> BodyText(element.content)
+//                }
+//            }
         }
 
 //        when (selectedTab) {
@@ -184,4 +208,11 @@ fun CodeBox(text: String) {
             )
         }
     }
+}
+
+fun AnnotatedString.Builder.appendMarkdownChildren(
+    parent: Node,
+    colors: Colors
+) {
+
 }

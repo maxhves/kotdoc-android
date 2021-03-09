@@ -88,4 +88,7 @@ dependencies {
     implementation Libs.Retrofit.retrofit
     implementation Libs.Retrofit.gsonConverter
 
+    // CommonMark
+    implementation Libs.CommonMark.commonMark
+
 }
