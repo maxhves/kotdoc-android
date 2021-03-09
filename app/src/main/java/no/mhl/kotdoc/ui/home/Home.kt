@@ -2,39 +2,23 @@ package no.mhl.kotdoc.ui.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.Paragraph
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.ui.theme.mediumPurple
-import no.mhl.kotdoc.ui.theme.sorbus
 import no.mhl.kotdoc.ui.utils.*
 import org.commonmark.parser.Parser
-import org.w3c.dom.Document
-import org.w3c.dom.Node
 
 private enum class DocTabs(
     @StringRes val title: Int,
@@ -65,28 +49,6 @@ fun Home(
 
     // TODO Remove test code below
     val doc by model.testGetFile().observeAsState()
-
-    val test = doc?.string()
-
-    test?.let {
-        val list = mutableListOf<org.commonmark.node.Node>()
-
-        val parser = Parser.builder().build()
-        val root = parser.parse(it)
-
-        var child = root.firstChild
-        while (child != null) {
-            list.add(child)
-            child = child.next
-        }
-
-        val t = list
-    }
-
-
-
-    //val elements = parseMarkdown(doc?.charStream())
-
 
     Scaffold(
         backgroundColor = MaterialTheme.colors.surface,
@@ -135,18 +97,12 @@ fun Home(
             .padding(16.dp)
             .padding(innerPadding)
 
-        LazyColumn(
-            modifier = modifier
-        ) {
-//            items(elements) { element ->
-//                when (element) {
-//                    is H2 -> H2Text(element.content)
-//                    is H3 -> H3Text(element.content)
-//                    is Info -> InfoBox(element.content)
-//                    is CodeBlock -> CodeBox(element.content)
-//                    else -> BodyText(element.content)
-//                }
-//            }
+        Column(
+            Modifier.verticalScroll(ScrollState(0))
+        ){
+            doc?.string()?.let { document ->
+                MarkdownDocument(Parser.builder().build().parse(document))
+            }
         }
 
 //        when (selectedTab) {
@@ -156,63 +112,3 @@ fun Home(
     }
 }
 // endregion
-
-@Composable
-fun H2Text(text: String) {
-    Text(text = text, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-}
-
-@Composable
-fun H3Text(text: String) {
-    Text(text = text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-}
-
-@Composable
-fun BodyText(text: String) {
-    val textReplaced = text.replace(Regex("`[a-zA-Z()@-]*`")) {
-        "%${it.value.replace("`", "")}%"
-    }
-    Text(text = textReplaced, fontSize = 14.sp, fontWeight = FontWeight.Normal)
-}
-
-@Composable
-fun InfoBox(text: String) {
-    Card(
-        shape = RoundedCornerShape(4.dp),
-        backgroundColor = Color(171, 237, 159, 100),
-        elevation = 0.dp
-    ) {
-        Box(Modifier.padding(16.dp)) {
-            Text(text = text,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.onBackground
-            )
-        }
-    }
-}
-
-@Composable
-fun CodeBox(text: String) {
-    Card(
-        shape = RoundedCornerShape(4.dp),
-        backgroundColor = MaterialTheme.colors.background,
-        elevation = 0.dp
-    ) {
-        Box(Modifier.padding(16.dp)) {
-            Text(text = text,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                color = mediumPurple,
-                fontFamily = FontFamily.Monospace
-            )
-        }
-    }
-}
-
-fun AnnotatedString.Builder.appendMarkdownChildren(
-    parent: Node,
-    colors: Colors
-) {
-
-}
