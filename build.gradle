@@ -25,3 +25,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//classpath "com.android.tools.build:gradle:$gradle_version"
+//classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"

@@ -25,9 +25,10 @@ fun parseMarkdown(reader: Reader?): List<Element> {
             val element = elements[elements.lastIndex]
             if (element is CodeBlock) {
                 if (element.complete.not()) {
-                    if (line.startsWith("```") || line.startsWith("  ```")) {
+                    if (line.startsWith("```")) {
                         (elements[elements.lastIndex] as CodeBlock).complete = true
                     } else {
+                        //elements[elements.lastIndex].content +=  "\n$line"
                         if (element.content == "") {
                             element.content += line
                         } else {
@@ -55,7 +56,7 @@ fun parseMarkdown(reader: Reader?): List<Element> {
             } else {
                 elements.add(Info(line.replace(">", "")))
             }
-        } else if (line.startsWith("```") || line.startsWith("  ```")) {
+        } else if (line.startsWith("```")) {
             elements.add(CodeBlock("", false))
         } else {
             if (elements[elements.lastIndex] is NewLine) {

@@ -55,10 +55,4 @@ object Libs {
         const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
     }
 
-    object CommonMark {
-        private const val version = "0.17.0"
-
-        const val commonMark = "com.atlassian.commonmark:commonmark:$version"
-    }
-
 }
