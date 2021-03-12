@@ -2,15 +2,9 @@ package no.mhl.kotdoc.ui.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -19,16 +13,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.ui.theme.mediumPurple
-import no.mhl.kotdoc.ui.theme.sorbus
+import no.mhl.kotdoc.data.local.MarkdownParser
 import no.mhl.kotdoc.ui.utils.*
 
 private enum class DocTabs(
@@ -58,11 +47,8 @@ fun Home(
     val tabs = DocTabs.values()
     val actions = DocMenuActions.values()
 
-    // TODO Remove test code below
+    // TODO Test Case
     val doc by model.testGetFile().observeAsState()
-
-    val elements = parseMarkdown(doc?.charStream())
-
 
     Scaffold(
         backgroundColor = MaterialTheme.colors.surface,
@@ -111,17 +97,12 @@ fun Home(
             .padding(16.dp)
             .padding(innerPadding)
 
-        LazyColumn(
-            modifier = modifier
-        ) {
-            items(elements) { element ->
-                when (element) {
-                    is H2 -> H2Text(element.content)
-                    is H3 -> H3Text(element.content)
-                    is Info -> InfoBox(element.content)
-                    is CodeBlock -> CodeBox(element.content)
-                    else -> BodyText(element.content)
-                }
+        // TODO Test Case
+        doc?.charStream()?.let { reader ->
+            val document = MarkdownParser(reader.readLines()).parseAsDocument()
+
+            Column(Modifier.verticalScroll(ScrollState(0))) {
+                MarkdownDocument(document)
             }
         }
 
@@ -132,56 +113,3 @@ fun Home(
     }
 }
 // endregion
-
-@Composable
-fun H2Text(text: String) {
-    Text(text = text, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-}
-
-@Composable
-fun H3Text(text: String) {
-    Text(text = text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-}
-
-@Composable
-fun BodyText(text: String) {
-    val textReplaced = text.replace(Regex("`[a-zA-Z()@-]*`")) {
-        "%${it.value.replace("`", "")}%"
-    }
-    Text(text = textReplaced, fontSize = 14.sp, fontWeight = FontWeight.Normal)
-}
-
-@Composable
-fun InfoBox(text: String) {
-    Card(
-        shape = RoundedCornerShape(4.dp),
-        backgroundColor = Color(171, 237, 159, 100),
-        elevation = 0.dp
-    ) {
-        Box(Modifier.padding(16.dp)) {
-            Text(text = text,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.onBackground
-            )
-        }
-    }
-}
-
-@Composable
-fun CodeBox(text: String) {
-    Card(
-        shape = RoundedCornerShape(4.dp),
-        backgroundColor = MaterialTheme.colors.background,
-        elevation = 0.dp
-    ) {
-        Box(Modifier.padding(16.dp)) {
-            Text(text = text,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                color = mediumPurple,
-                fontFamily = FontFamily.Monospace
-            )
-        }
-    }
-}
