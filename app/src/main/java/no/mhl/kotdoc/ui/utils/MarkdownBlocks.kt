@@ -19,6 +19,7 @@ import no.mhl.kotdoc.data.local.Heading
 import no.mhl.kotdoc.data.local.Paragraph
 import no.mhl.kotdoc.data.local.FencedCode
 import no.mhl.kotdoc.data.local.Alert
+import no.mhl.kotdoc.ui.theme.sorbus
 
 @Composable
 fun MarkdownDocument(document: Document) {
@@ -44,7 +45,10 @@ fun MarkdownHeading(content: String) {
     Box(
         modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
     ) {
-        Text(content)
+        Text(
+            text = content,
+            style = MaterialTheme.typography.h5
+        )
     }
 }
 
@@ -55,7 +59,7 @@ fun MarkdownParagraph(content: String) {
     ) {
         Text(
             text = content,
-            color = Color.Red
+            style = MaterialTheme.typography.body1
         )
     }
 }
@@ -73,7 +77,7 @@ fun MarkdownCode(content: String) {
                 text = content,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = mediumPurple,
+                color = sorbus,
                 fontFamily = FontFamily.Monospace
             )
         }
@@ -91,9 +95,7 @@ fun MarkdownAlert(content: String) {
         Box(Modifier.padding(16.dp)) {
             Text(
                 text = content,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                color = Color.DarkGray
+                style = MaterialTheme.typography.body1
             )
         }
     }
