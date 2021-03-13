@@ -1,6 +1,8 @@
 package no.mhl.kotdoc.ui.utils
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -13,12 +15,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import no.mhl.kotdoc.data.local.Document
+import no.mhl.kotdoc.data.local.*
 import no.mhl.kotdoc.ui.theme.mediumPurple
-import no.mhl.kotdoc.data.local.Heading
-import no.mhl.kotdoc.data.local.Paragraph
-import no.mhl.kotdoc.data.local.FencedCode
-import no.mhl.kotdoc.data.local.Alert
 import no.mhl.kotdoc.ui.theme.sorbus
 
 @Composable
@@ -35,6 +33,7 @@ fun MarkdownBlocks(document: Document) {
             is FencedCode -> MarkdownCode(node.block.content)
             is Paragraph -> MarkdownParagraph(node.block.content)
             is Alert -> MarkdownAlert(node.block.content)
+            is NewLine -> MarkdownNewLine()
         }
         node = node.next
     }
@@ -43,7 +42,7 @@ fun MarkdownBlocks(document: Document) {
 @Composable
 fun MarkdownHeading(heading: Heading) {
     Box(
-        modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         val style = when (heading.level) {
             1 -> MaterialTheme.typography.h4
@@ -62,7 +61,7 @@ fun MarkdownHeading(heading: Heading) {
 @Composable
 fun MarkdownParagraph(content: String) {
     Box(
-        modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         Text(
             text = content,
@@ -77,7 +76,7 @@ fun MarkdownCode(content: String) {
         shape = RoundedCornerShape(4.dp),
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
-        modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         Box(Modifier.padding(16.dp)) {
             Text(
@@ -97,7 +96,7 @@ fun MarkdownAlert(content: String) {
         shape = RoundedCornerShape(4.dp),
         backgroundColor = Color(87, 255, 171, 100),
         elevation = 0.dp,
-        modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         Box(Modifier.padding(16.dp)) {
             Text(
@@ -105,5 +104,12 @@ fun MarkdownAlert(content: String) {
                 style = MaterialTheme.typography.body1
             )
         }
+    }
+}
+
+@Composable
+fun MarkdownNewLine() {
+    Box {
+        Spacer(Modifier.height(16.dp))
     }
 }

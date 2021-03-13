@@ -28,6 +28,7 @@ class MarkdownParser(
                 matchFor(FencedCode) -> parseFencedCode()
                 matchFor(Alert) -> parseAlert()
                 matchFor(Heading) -> parseHeading()
+                blankLine() -> parseNewLine()
                 else -> parseParagraph()
             }
         }
@@ -36,6 +37,8 @@ class MarkdownParser(
 
     // region Paragraph
     private fun parseParagraph() {
+        println("Parsing: [Paragraph]")
+
         val paragraph = Paragraph("")
 
         while (isComplexBlock().not() && currentIndex != lines.lastIndex) {
@@ -50,6 +53,8 @@ class MarkdownParser(
 
     // region Heading
     private fun parseHeading() {
+        println("Parsing: [Heading]")
+
         val level = lines[currentIndex].count { it == '#' }
         val line = lines[currentIndex].replace("#", "").trim()
 
@@ -59,8 +64,20 @@ class MarkdownParser(
     }
     // endregion
 
+    // region New Line
+    private fun parseNewLine() {
+        println("Parsing: [NewLine]")
+
+        document.append(NewLine(""))
+        currentIndex++
+        beginBlockParse()
+    }
+    // endregion
+
     // region Fenced Code
     private fun parseFencedCode() {
+        println("Parsing: [FencedCode]")
+
         val code = FencedCode("")
         var codeBlockMatches = 0
 
@@ -81,6 +98,8 @@ class MarkdownParser(
 
     //region Alert
     private fun parseAlert() {
+        println("Parsing: [Alert]")
+
         val alert = Alert("")
         var fullMatch = false
 
@@ -88,7 +107,8 @@ class MarkdownParser(
             fullMatch = matchFor(AlertType)
 
             if (fullMatch.not()) {
-                alert.content += " ${lines[currentIndex]}"
+                val line = lines[currentIndex].replace("> ", "")
+                alert.content += line
             }
 
             currentIndex++
@@ -105,12 +125,17 @@ class MarkdownParser(
             matchFor(FencedCode) -> true
             matchFor(Alert) -> true
             matchFor(Heading) -> true
+            blankLine() -> true
             else -> false
         }
     }
 
     private fun matchFor(pattern: Pattern): Boolean {
         return lines[currentIndex].matches(Regex(pattern.literal))
+    }
+
+    private fun blankLine(): Boolean {
+        return lines[currentIndex].isBlank()
     }
     // endregion
 

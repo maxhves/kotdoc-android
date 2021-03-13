@@ -23,4 +23,8 @@ data class FencedCode(
 data class Paragraph(
     override var content: String
 ) : Block(content)
+
+data class NewLine(
+    override var content: String
+) : Block(content)
 // endregion
