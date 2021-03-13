@@ -62,8 +62,12 @@ class MarkdownParser(
         var codeBlockMatches = 0
 
         while (codeBlockMatches < 2) {
-            if (matchFor(FencedCode)) codeBlockMatches++
-            code.content += "\n${lines[currentIndex]}"
+            if (matchFor(FencedCode))  {
+                codeBlockMatches++
+            } else {
+                val potentialNewLine = if (code.content == "") "" else "\n"
+                code.content += "$potentialNewLine${lines[currentIndex]}"
+            }
             currentIndex++
         }
 
