@@ -31,7 +31,7 @@ fun MarkdownBlocks(document: Document) {
     var node = document.first()
     while (node != null) {
         when (node.block) {
-            is Heading -> MarkdownHeading(node.block.content)
+            is Heading -> MarkdownHeading(node.block as Heading)
             is FencedCode -> MarkdownCode(node.block.content)
             is Paragraph -> MarkdownParagraph(node.block.content)
             is Alert -> MarkdownAlert(node.block.content)
@@ -41,13 +41,20 @@ fun MarkdownBlocks(document: Document) {
 }
 
 @Composable
-fun MarkdownHeading(content: String) {
+fun MarkdownHeading(heading: Heading) {
     Box(
         modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
     ) {
+        val style = when (heading.level) {
+            1 -> MaterialTheme.typography.h4
+            2 -> MaterialTheme.typography.h5
+            3 -> MaterialTheme.typography.h6
+            else -> MaterialTheme.typography.h4
+        }
+
         Text(
-            text = content,
-            style = MaterialTheme.typography.h5
+            text = heading.content,
+            style = style
         )
     }
 }

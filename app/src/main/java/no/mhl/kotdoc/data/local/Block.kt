@@ -8,7 +8,8 @@ open class Block(
 
 // region Markdown Blocks
 data class Heading(
-    override var content: String
+    override var content: String,
+    val level: Int = 1
 ) : Block(content)
 
 data class Alert(

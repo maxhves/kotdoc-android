@@ -50,7 +50,10 @@ class MarkdownParser(
 
     // region Heading
     private fun parseHeading() {
-        document.append(Heading(lines[currentIndex]))
+        val level = lines[currentIndex].count { it == '#' }
+        val line = lines[currentIndex].replace("#", "").trim()
+
+        document.append(Heading(line, level))
         currentIndex++
         beginBlockParse()
     }
