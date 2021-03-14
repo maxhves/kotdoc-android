@@ -80,9 +80,9 @@ fun MarkdownCode(content: String) {
         Box(Modifier.padding(16.dp)) {
             Text(
                 text = content,
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
-                color = sorbus,
+                color = mediumPurple,
                 fontFamily = FontFamily.Monospace
             )
         }
