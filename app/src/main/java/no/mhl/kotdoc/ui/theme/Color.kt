@@ -19,3 +19,11 @@ val blackTransparent = Color(0x80000000)
 val alabaster = Color(0xFFF9F9F9)
 val mineShaft = Color(0xFF202020)
 // endregion
+
+// region Markdown Blocks
+val peppermint = Color(0xFFDEF2DF)
+val chateauGreen = Color(0xFF4DBC5F)
+
+val peachSchnapps = Color(0xFFFED9D5)
+val pomegranate = Color(0xFFEF331F)
+// endregion

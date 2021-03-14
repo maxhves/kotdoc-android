@@ -13,8 +13,25 @@ data class Heading(
 ) : Block(content)
 
 data class Alert(
-    override var content: String
-) : Block(content)
+    override var content: String,
+    var type: AlertType = AlertType.Note
+) : Block(content) {
+    enum class AlertType {
+        Note,
+        Warning;
+
+        companion object {
+            fun fromString(type: String): AlertType {
+                return when (type) {
+                    "note" -> Note
+                    "warning" -> Warning
+                    else -> Note
+                }
+            }
+        }
+
+    }
+}
 
 data class FencedCode(
     override var content: String

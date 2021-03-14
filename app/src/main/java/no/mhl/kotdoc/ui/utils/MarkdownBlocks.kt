@@ -16,8 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.data.local.*
-import no.mhl.kotdoc.ui.theme.mediumPurple
-import no.mhl.kotdoc.ui.theme.sorbus
+import no.mhl.kotdoc.ui.theme.*
 
 @Composable
 fun MarkdownDocument(document: Document) {
@@ -32,7 +31,7 @@ fun MarkdownBlocks(document: Document) {
             is Heading -> MarkdownHeading(node.block as Heading)
             is FencedCode -> MarkdownCode(node.block.content)
             is Paragraph -> MarkdownParagraph(node.block.content)
-            is Alert -> MarkdownAlert(node.block.content)
+            is Alert -> MarkdownAlert(node.block as Alert)
             is NewLine -> MarkdownNewLine()
         }
         node = node.next
@@ -91,16 +90,21 @@ fun MarkdownCode(content: String) {
 }
 
 @Composable
-fun MarkdownAlert(content: String) {
+fun MarkdownAlert(alert: Alert) {
+    val backgroundColor = when (alert.type) {
+        Alert.AlertType.Note -> peppermint
+        Alert.AlertType.Warning -> peachSchnapps
+    }
+
     Card(
         shape = RoundedCornerShape(4.dp),
-        backgroundColor = Color(87, 255, 171, 100),
+        backgroundColor = backgroundColor,
         elevation = 0.dp,
         modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         Box(Modifier.padding(16.dp)) {
             Text(
-                text = content,
+                text = alert.content,
                 style = MaterialTheme.typography.body1
             )
         }

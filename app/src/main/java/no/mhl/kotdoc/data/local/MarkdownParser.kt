@@ -37,8 +37,6 @@ class MarkdownParser(
 
     // region Paragraph
     private fun parseParagraph() {
-        println("Parsing: [Paragraph]")
-
         val paragraph = Paragraph("")
 
         while (isComplexBlock().not() && currentIndex != lines.lastIndex) {
@@ -53,8 +51,6 @@ class MarkdownParser(
 
     // region Heading
     private fun parseHeading() {
-        println("Parsing: [Heading]")
-
         val level = lines[currentIndex].count { it == '#' }
         val line = lines[currentIndex].replace("#", "").trim()
 
@@ -66,8 +62,6 @@ class MarkdownParser(
 
     // region New Line
     private fun parseNewLine() {
-        println("Parsing: [NewLine]")
-
         document.append(NewLine(""))
         currentIndex++
         beginBlockParse()
@@ -76,8 +70,6 @@ class MarkdownParser(
 
     // region Fenced Code
     private fun parseFencedCode() {
-        println("Parsing: [FencedCode]")
-
         val code = FencedCode("")
         var codeBlockMatches = 0
 
@@ -98,8 +90,6 @@ class MarkdownParser(
 
     //region Alert
     private fun parseAlert() {
-        println("Parsing: [Alert]")
-
         val alert = Alert("")
         var fullMatch = false
 
@@ -107,8 +97,12 @@ class MarkdownParser(
             fullMatch = matchFor(AlertType)
 
             if (fullMatch.not()) {
-                val line = lines[currentIndex].replace("> ", "")
+                val line = lines[currentIndex].replace(">", "")
                 alert.content += line
+            } else {
+                // TODO Create a more sophisticated approach to this
+                val type = lines[currentIndex].replace("{type=\"", "").replace("\"}", "")
+                alert.type = Alert.AlertType.fromString(type)
             }
 
             currentIndex++
