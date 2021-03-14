@@ -3,15 +3,18 @@ package no.mhl.kotdoc.ui.utils
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import no.mhl.kotdoc.R
 import no.mhl.kotdoc.data.local.*
 import no.mhl.kotdoc.ui.theme.*
 
@@ -92,6 +95,14 @@ fun MarkdownAlert(alert: Alert) {
         Alert.AlertType.Note -> peppermint
         Alert.AlertType.Warning -> peachSchnapps
     }
+    val icon = when (alert.type) {
+        Alert.AlertType.Warning -> R.drawable.ic_warning
+        Alert.AlertType.Note -> R.drawable.ic_info
+    }
+    val iconTint = when (alert.type) {
+        Alert.AlertType.Warning -> pomegranate
+        Alert.AlertType.Note -> chateauGreen
+    }
 
     Card(
         shape = RoundedCornerShape(4.dp),
@@ -100,10 +111,18 @@ fun MarkdownAlert(alert: Alert) {
         modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
     ) {
         Box(Modifier.padding(16.dp)) {
-            Text(
-                text = alert.content,
-                style = MaterialTheme.typography.body1
-            )
+            Row {
+                Icon(
+                    painterResource(icon),
+                    "",
+                    tint = iconTint,
+                    modifier = Modifier.height(24.dp).padding(end = 16.dp)
+                )
+                Text(
+                    text = alert.content,
+                    style = MaterialTheme.typography.body1
+                )
+            }
         }
     }
 }
