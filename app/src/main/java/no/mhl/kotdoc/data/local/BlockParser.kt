@@ -2,7 +2,7 @@ package no.mhl.kotdoc.data.local
 
 import no.mhl.kotdoc.data.local.Pattern.*
 
-class MarkdownParser(
+class BlockParser(
     private val lines: List<String>
 ) {
 

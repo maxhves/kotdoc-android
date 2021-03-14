@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.data.local.MarkdownParser
+import no.mhl.kotdoc.data.local.BlockParser
 import no.mhl.kotdoc.ui.utils.*
 
 private enum class DocTabs(
@@ -99,7 +99,7 @@ fun Home(
 
         // TODO Test Case
         doc?.charStream()?.let { reader ->
-            val document = MarkdownParser(reader.readLines()).parseAsDocument()
+            val document = BlockParser(reader.readLines()).parseAsDocument()
 
             Column(Modifier.verticalScroll(ScrollState(0)).padding(innerPadding)) {
                 MarkdownDocument(document)
