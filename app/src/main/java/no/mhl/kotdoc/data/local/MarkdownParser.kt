@@ -28,6 +28,7 @@ class MarkdownParser(
                 matchFor(FencedCode) -> parseFencedCode()
                 matchFor(Alert) -> parseAlert()
                 matchFor(Heading) -> parseHeading()
+                matchFor(PageTitle) -> parsePageTitle()
                 blankLine() -> parseNewLine()
                 else -> parseParagraph()
             }
@@ -111,6 +112,12 @@ class MarkdownParser(
         document.append(alert)
         beginBlockParse()
     }
+
+    private fun parsePageTitle() {
+        // Don't include page titles
+        currentIndex++
+        beginBlockParse()
+    }
     // endregion
 
     // region Helper Methods
@@ -119,6 +126,7 @@ class MarkdownParser(
             matchFor(FencedCode) -> true
             matchFor(Alert) -> true
             matchFor(Heading) -> true
+            matchFor(PageTitle) -> true
             blankLine() -> true
             else -> false
         }

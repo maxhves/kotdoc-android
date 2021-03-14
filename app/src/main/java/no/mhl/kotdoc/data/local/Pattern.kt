@@ -5,5 +5,6 @@ enum class Pattern(val literal: String) {
     FencedCode("^```(.*)\$"),
     Alert("^>+.*\$"),
     AlertType("^\\{type=\".+\"\\}\$"),
-    Paragraph("^.*\$")
+    Paragraph("^.*\$"),
+    PageTitle("(\\[\\/\\/\\]: # \\(title:.+\\))")
 }
