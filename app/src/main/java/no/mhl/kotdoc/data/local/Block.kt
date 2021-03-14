@@ -38,7 +38,8 @@ data class FencedCode(
 ) : Block(content)
 
 data class Paragraph(
-    override var content: String
+    override var content: String,
+    var inlineContent: List<InlineBlock> = listOf()
 ) : Block(content)
 
 data class NewLine(

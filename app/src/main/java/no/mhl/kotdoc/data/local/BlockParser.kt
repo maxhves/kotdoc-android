@@ -52,6 +52,7 @@ class BlockParser() {
             currentIndex++
         }
 
+        paragraph.inlineContent = InlineParser().parseToInlineBlocks(paragraph.content)
         appendBlock(paragraph)
     }
     // endregion

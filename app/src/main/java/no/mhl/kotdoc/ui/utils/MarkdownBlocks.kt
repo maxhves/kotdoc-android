@@ -24,7 +24,7 @@ fun MarkdownBlocks(blocks: List<Block>) {
         when (val block = blocks[i]) {
             is Heading -> MarkdownHeading(block)
             is FencedCode -> MarkdownCode(block.content)
-            is Paragraph -> MarkdownParagraph(block.content)
+            is Paragraph -> MarkdownParagraph(block)
             is Alert -> MarkdownAlert(block)
             is NewLine -> MarkdownNewLine()
         }
@@ -51,12 +51,18 @@ fun MarkdownHeading(heading: Heading) {
 }
 
 @Composable
-fun MarkdownParagraph(content: String) {
+fun MarkdownParagraph(block: Paragraph) {
+    var text = ""
+
+    for (i in block.inlineContent.indices) {
+        text += block.inlineContent[i].content
+    }
+
     Box(
         modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         Text(
-            text = content,
+            text = text,
             style = MaterialTheme.typography.body1
         )
     }

@@ -22,4 +22,8 @@ data class Code(
 data class Link(
     override var content: String
 ) : InlineBlock(content)
+
+data class Text(
+    override var content: String
+) : InlineBlock(content)
 // endregion
