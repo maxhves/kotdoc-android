@@ -11,7 +11,9 @@ class MarkdownParser(
     // endregion
 
     // region Properties
+    private var title: String = ""
     private var currentIndex: Int = 0
+    private val lastIndex: Int = lines.lastIndex
     // endregion
 
     // region Document Retrieval
@@ -23,7 +25,7 @@ class MarkdownParser(
 
     // region Block Parsing
     private fun beginBlockParse() {
-        if (currentIndex != lines.lastIndex) {
+        if (currentIndex <= lastIndex) {
             when {
                 matchFor(FencedCode) -> parseFencedCode()
                 matchFor(Alert) -> parseAlert()
@@ -40,7 +42,7 @@ class MarkdownParser(
     private fun parseParagraph() {
         val paragraph = Paragraph("")
 
-        while (isComplexBlock().not() && currentIndex != lines.lastIndex) {
+        while (currentIndex <= lastIndex && isComplexBlock().not()) {
             paragraph.content += lines[currentIndex]
             currentIndex++
         }
@@ -114,7 +116,8 @@ class MarkdownParser(
     }
 
     private fun parsePageTitle() {
-        // Don't include page titles
+        val title = lines[currentIndex].replace("[//]: # (title: ", "").replace(")", "")
+        this.title = title
         currentIndex++
         beginBlockParse()
     }

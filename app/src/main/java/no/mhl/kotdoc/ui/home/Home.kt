@@ -101,7 +101,7 @@ fun Home(
         doc?.charStream()?.let { reader ->
             val document = MarkdownParser(reader.readLines()).parseAsDocument()
 
-            Column(Modifier.verticalScroll(ScrollState(0))) {
+            Column(Modifier.verticalScroll(ScrollState(0)).padding(innerPadding)) {
                 MarkdownDocument(document)
             }
         }
