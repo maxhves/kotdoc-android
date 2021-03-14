@@ -2,30 +2,35 @@ package no.mhl.kotdoc.data.local
 
 import no.mhl.kotdoc.data.local.Pattern.*
 
-class BlockParser(
-    private val lines: List<String>
-) {
+class BlockParser() {
 
-    // region Root Document
-    private val document: Document = Document()
-    // endregion
+    // region Local Properties
+    private val blocks: MutableList<Block> = mutableListOf()
+    private var markdown: List<String> = listOf()
 
-    // region Properties
-    private var title: String = ""
     private var currentIndex: Int = 0
-    private val lastIndex: Int = lines.lastIndex
+    private val currentLine: String
+        get() = markdown[currentIndex]
+    private val validIndex: Boolean
+        get() = currentIndex <= markdown.lastIndex
     // endregion
 
-    // region Document Retrieval
-    fun parseAsDocument(): Document {
+    // region Value Functions
+    private val matchFor = { pattern: Pattern -> currentLine.matches(Regex(pattern.literal)) }
+    private val blankLine = { currentLine.isBlank() }
+    // endregion
+
+    // region Parse Exposure
+    fun parseToBlocks(lines: List<String>): List<Block> {
+        markdown = lines
         beginBlockParse()
-        return document
+        return blocks
     }
     // endregion
 
     // region Block Parsing
     private fun beginBlockParse() {
-        if (currentIndex <= lastIndex) {
+        if (validIndex) {
             when {
                 matchFor(FencedCode) -> parseFencedCode()
                 matchFor(Alert) -> parseAlert()
@@ -42,32 +47,29 @@ class BlockParser(
     private fun parseParagraph() {
         val paragraph = Paragraph("")
 
-        while (currentIndex <= lastIndex && isComplexBlock().not()) {
-            paragraph.content += lines[currentIndex]
+        while (validIndex && isComplexBlock().not()) {
+            paragraph.content += currentLine
             currentIndex++
         }
 
-        document.append(paragraph)
-        beginBlockParse()
+        appendBlock(paragraph)
     }
     // endregion
 
     // region Heading
     private fun parseHeading() {
-        val level = lines[currentIndex].count { it == '#' }
-        val line = lines[currentIndex].replace("#", "").trim()
+        val level = currentLine.count { it == '#' }
+        val line = currentLine.replace("#", "").trim()
 
-        document.append(Heading(line, level))
         currentIndex++
-        beginBlockParse()
+        appendBlock(Heading(line, level))
     }
     // endregion
 
     // region New Line
     private fun parseNewLine() {
-        document.append(NewLine(""))
         currentIndex++
-        beginBlockParse()
+        appendBlock(NewLine(""))
     }
     // endregion
 
@@ -81,13 +83,12 @@ class BlockParser(
                 codeBlockMatches++
             } else {
                 val potentialNewLine = if (code.content == "") "" else "\n"
-                code.content += "$potentialNewLine${lines[currentIndex]}"
+                code.content += "$potentialNewLine$currentLine"
             }
             currentIndex++
         }
 
-        document.append(code)
-        beginBlockParse()
+        appendBlock(code)
     }
     // endregion
 
@@ -100,24 +101,22 @@ class BlockParser(
             fullMatch = matchFor(AlertType)
 
             if (fullMatch.not()) {
-                val line = lines[currentIndex].replace(">", "")
+                val line = currentLine.replace(">", "")
                 alert.content += line
             } else {
                 // TODO Create a more sophisticated approach to this
-                val type = lines[currentIndex].replace("{type=\"", "").replace("\"}", "")
+                val type = currentLine.replace("{type=\"", "").replace("\"}", "")
                 alert.type = Alert.AlertType.fromString(type)
             }
 
             currentIndex++
         }
 
-        document.append(alert)
-        beginBlockParse()
+        appendBlock(alert)
     }
 
     private fun parsePageTitle() {
-        val title = lines[currentIndex].replace("[//]: # (title: ", "").replace(")", "")
-        this.title = title
+        // TODO Here we can get the page title.
         currentIndex++
         beginBlockParse()
     }
@@ -135,12 +134,9 @@ class BlockParser(
         }
     }
 
-    private fun matchFor(pattern: Pattern): Boolean {
-        return lines[currentIndex].matches(Regex(pattern.literal))
-    }
-
-    private fun blankLine(): Boolean {
-        return lines[currentIndex].isBlank()
+    private fun appendBlock(block: Block) {
+        blocks.add(block)
+        beginBlockParse()
     }
     // endregion
 

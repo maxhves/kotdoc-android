@@ -19,22 +19,15 @@ import no.mhl.kotdoc.data.local.*
 import no.mhl.kotdoc.ui.theme.*
 
 @Composable
-fun MarkdownDocument(document: Document) {
-    MarkdownBlocks(document)
-}
-
-@Composable
-fun MarkdownBlocks(document: Document) {
-    var node = document.first()
-    while (node != null) {
-        when (node.block) {
-            is Heading -> MarkdownHeading(node.block as Heading)
-            is FencedCode -> MarkdownCode(node.block.content)
-            is Paragraph -> MarkdownParagraph(node.block.content)
-            is Alert -> MarkdownAlert(node.block as Alert)
+fun MarkdownBlocks(blocks: List<Block>) {
+    for (i in blocks.indices) {
+        when (val block = blocks[i]) {
+            is Heading -> MarkdownHeading(block)
+            is FencedCode -> MarkdownCode(block.content)
+            is Paragraph -> MarkdownParagraph(block.content)
+            is Alert -> MarkdownAlert(block)
             is NewLine -> MarkdownNewLine()
         }
-        node = node.next
     }
 }
 

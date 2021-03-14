@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.mhl.kotdoc.R
+import no.mhl.kotdoc.data.local.Block
 import no.mhl.kotdoc.data.local.BlockParser
 import no.mhl.kotdoc.ui.utils.*
 
@@ -54,7 +55,7 @@ fun Home(
         backgroundColor = MaterialTheme.colors.surface,
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(selectedTab.title)) },
+                title = { Text(stringResource(selectedTab.title), style = MaterialTheme.typography.h4) },
                 backgroundColor = MaterialTheme.colors.surface,
                 actions = {
                     actions.forEach { action ->
@@ -99,10 +100,10 @@ fun Home(
 
         // TODO Test Case
         doc?.charStream()?.let { reader ->
-            val document = BlockParser(reader.readLines()).parseAsDocument()
+            val blocks: List<Block> = BlockParser().parseToBlocks(reader.readLines())
 
             Column(Modifier.verticalScroll(ScrollState(0)).padding(innerPadding)) {
-                MarkdownDocument(document)
+                MarkdownBlocks(blocks)
             }
         }
 
