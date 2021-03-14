@@ -1,9 +1,6 @@
 package no.mhl.kotdoc.ui.utils
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -75,7 +72,7 @@ fun MarkdownCode(content: String) {
         shape = RoundedCornerShape(4.dp),
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
     ) {
         Box(Modifier.padding(16.dp)) {
             Text(
@@ -100,7 +97,7 @@ fun MarkdownAlert(alert: Alert) {
         shape = RoundedCornerShape(4.dp),
         backgroundColor = backgroundColor,
         elevation = 0.dp,
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
     ) {
         Box(Modifier.padding(16.dp)) {
             Text(
