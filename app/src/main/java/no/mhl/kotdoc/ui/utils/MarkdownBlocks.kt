@@ -1,5 +1,7 @@
 package no.mhl.kotdoc.ui.utils
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -73,12 +75,17 @@ fun MarkdownCode(content: String) {
         elevation = 0.dp,
         modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
     ) {
-        Box(Modifier.padding(16.dp)) {
-            Text(
-                text = content,
-                color = mediumPurple,
-                style = MarkdownCode
-            )
+        Row(
+            Modifier.horizontalScroll(ScrollState(0))
+        ) {
+            Box(Modifier.padding(16.dp)) {
+                Text(
+                    text = content,
+                    color = mediumPurple,
+                    style = MarkdownCode,
+                    softWrap = false
+                )
+            }
         }
     }
 }
