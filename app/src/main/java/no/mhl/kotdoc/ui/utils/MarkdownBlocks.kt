@@ -8,17 +8,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
 import no.mhl.kotdoc.data.local.*
 import no.mhl.kotdoc.ui.theme.*
@@ -42,10 +38,10 @@ fun MarkdownHeading(heading: Heading) {
         modifier = Modifier.padding(start = 16.dp, end = 16.dp)
     ) {
         val style = when (heading.level) {
-            1 -> MaterialTheme.typography.h4
-            2 -> MaterialTheme.typography.h5
-            3 -> MaterialTheme.typography.h6
-            else -> MaterialTheme.typography.h4
+            1 -> MarkdownH1
+            2 -> MarkdownH2
+            3 -> MarkdownH3
+            else -> MarkdownH1
         }
 
         Text(
@@ -64,7 +60,7 @@ fun MarkdownParagraph(block: Paragraph) {
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.body1
+            style = MarkdownBody1
         )
     }
 }
@@ -80,10 +76,8 @@ fun MarkdownCode(content: String) {
         Box(Modifier.padding(16.dp)) {
             Text(
                 text = content,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
                 color = mediumPurple,
-                fontFamily = FontFamily.Monospace
+                style = MarkdownCode
             )
         }
     }
@@ -122,7 +116,7 @@ fun MarkdownAlert(alert: Alert) {
                 )
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.body1
+                    style = MarkdownBody1
                 )
             }
         }
@@ -146,7 +140,7 @@ fun AnnotatedString.Builder.appendInlineContent(inlineContent: List<InlineBlock>
                 pop()
             }
             is Code -> {
-                pushStyle(TextStyle(fontFamily = FontFamily.Monospace).toSpanStyle())
+                pushStyle(MarkdownCode.toSpanStyle())
                 pushStyle(SpanStyle(background = alabaster))
                 append(block.content)
                 pop()

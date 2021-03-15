@@ -21,27 +21,36 @@ val Manrope = FontFamily(
     Font(R.font.manrope_extrabold, FontWeight.ExtraBold)
 )
 
-val typography = Typography(
-    defaultFontFamily = Manrope,
+val typography = Typography(defaultFontFamily = Manrope)
 
-    body1 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
-    ),
-
-    h4 = TextStyle(
-        fontWeight = FontWeight.Medium,
-        fontSize = 20.sp
-    ),
-
-    h5 = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
-    ),
-
-    h6 = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 16.sp
-    )
-
+// region Markdown Typography
+val MarkdownH1 = TextStyle(
+    fontWeight = FontWeight.Medium,
+    fontSize = 20.sp,
+    fontFamily = Manrope
 )
+
+val MarkdownH2 = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 18.sp,
+    fontFamily = Manrope
+)
+
+val MarkdownH3 = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 16.sp,
+    fontFamily = Manrope
+)
+
+val MarkdownBody1 = TextStyle(
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    fontFamily = Manrope
+)
+
+val MarkdownCode = TextStyle(
+    fontWeight = FontWeight.Normal,
+    fontFamily = FontFamily.Monospace,
+    fontSize = 14.sp
+)
+// endregion

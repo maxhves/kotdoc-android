@@ -55,7 +55,7 @@ fun Home(
         backgroundColor = MaterialTheme.colors.surface,
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(selectedTab.title), style = MaterialTheme.typography.h4) },
+                title = { Text(stringResource(selectedTab.title), style = MaterialTheme.typography.h6) },
                 backgroundColor = MaterialTheme.colors.surface,
                 actions = {
                     actions.forEach { action ->
