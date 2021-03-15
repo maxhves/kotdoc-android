@@ -22,6 +22,16 @@ val Manrope = FontFamily(
 val JetBrainsMono = FontFamily(
     Font(R.font.jet_brains_mono_regular, FontWeight.Normal)
 )
+
+val Inter = FontFamily(
+    Font(R.font.inter_extralight, FontWeight.ExtraLight),
+    Font(R.font.inter_light, FontWeight.Light),
+    Font(R.font.inter_regular, FontWeight.Normal),
+    Font(R.font.inter_medium, FontWeight.Medium),
+    Font(R.font.inter_bold, FontWeight.Bold),
+    Font(R.font.inter_semibold, FontWeight.SemiBold),
+    Font(R.font.inter_extrabold, FontWeight.ExtraBold),
+)
 //endregion
 
 val typography = Typography(defaultFontFamily = Manrope)
@@ -30,25 +40,25 @@ val typography = Typography(defaultFontFamily = Manrope)
 val MarkdownH1 = TextStyle(
     fontWeight = FontWeight.Medium,
     fontSize = 20.sp,
-    fontFamily = Manrope
+    fontFamily = Inter
 )
 
 val MarkdownH2 = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 18.sp,
-    fontFamily = Manrope
+    fontFamily = Inter
 )
 
 val MarkdownH3 = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 16.sp,
-    fontFamily = Manrope
+    fontFamily = Inter
 )
 
 val MarkdownBody1 = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
-    fontFamily = Manrope
+    fontFamily = Inter
 )
 
 val MarkdownCode = TextStyle(
