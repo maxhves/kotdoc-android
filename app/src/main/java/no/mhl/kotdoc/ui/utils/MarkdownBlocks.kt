@@ -70,7 +70,7 @@ fun MarkdownParagraph(block: Paragraph) {
 @Composable
 fun MarkdownCode(content: String) {
     Card(
-        shape = RoundedCornerShape(4.dp),
+        shape = MaterialTheme.shapes.medium,
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
         modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
@@ -108,7 +108,7 @@ fun MarkdownAlert(alert: Alert) {
     val text = buildAnnotatedString { appendInlineContent(alert.inlineContent) }
 
     Card(
-        shape = RoundedCornerShape(4.dp),
+        shape = MaterialTheme.shapes.medium,
         backgroundColor = backgroundColor,
         elevation = 0.dp,
         modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
