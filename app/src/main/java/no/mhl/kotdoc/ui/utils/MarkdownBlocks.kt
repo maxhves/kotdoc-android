@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
@@ -143,8 +144,10 @@ fun AnnotatedString.Builder.appendInlineContent(inlineContent: List<InlineBlock>
                 pop()
             }
             is Code -> {
-                pushStyle(SpanStyle(color = pomegranate))
+                pushStyle(TextStyle(fontFamily = FontFamily.Monospace).toSpanStyle())
+                pushStyle(SpanStyle(background = alabaster))
                 append(block.content)
+                pop()
                 pop()
             }
             is Text -> append(block.content)
