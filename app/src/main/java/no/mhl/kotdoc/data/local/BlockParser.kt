@@ -113,6 +113,7 @@ class BlockParser() {
             currentIndex++
         }
 
+        alert.inlineContent = InlineParser().parseToInlineBlocks(alert.content)
         appendBlock(alert)
     }
 

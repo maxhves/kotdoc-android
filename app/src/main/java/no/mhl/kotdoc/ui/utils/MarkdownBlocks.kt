@@ -104,6 +104,8 @@ fun MarkdownAlert(alert: Alert) {
         Alert.AlertType.Note -> chateauGreen
     }
 
+    val text = buildAnnotatedString { appendInlineContent(alert.inlineContent) }
+
     Card(
         shape = RoundedCornerShape(4.dp),
         backgroundColor = backgroundColor,
@@ -119,7 +121,7 @@ fun MarkdownAlert(alert: Alert) {
                     modifier = Modifier.height(24.dp).padding(end = 16.dp)
                 )
                 Text(
-                    text = alert.content,
+                    text = text,
                     style = MaterialTheme.typography.body1
                 )
             }

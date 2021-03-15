@@ -14,7 +14,8 @@ data class Heading(
 
 data class Alert(
     override var content: String,
-    var type: AlertType = AlertType.Note
+    var type: AlertType = AlertType.Note,
+    var inlineContent: List<InlineBlock> = listOf()
 ) : Block(content) {
     enum class AlertType {
         Note,
