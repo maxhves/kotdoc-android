@@ -30,6 +30,7 @@ class InlineParser {
         if (validIndex) {
             when (currentChar) {
                 '`' -> parseCode()
+                '[' -> parseLink()
                 else -> parseText()
             }
         }
@@ -57,7 +58,23 @@ class InlineParser {
 
     // region Link
     private fun parseLink() {
+        val link = Link("")
+        var linkTagMatches = 0
 
+        while (linkTagMatches < 2) {
+            if (currentChar == '(' || currentChar == ')') {
+                linkTagMatches++
+            }
+
+            if (linkTagMatches == 0 && currentChar != '[' && currentChar != ']') {
+                link.content += currentChar
+            }
+
+            currentIndex++
+        }
+
+        blocks.add(link)
+        beginInlineParse()
     }
     // endregion
 
@@ -79,6 +96,7 @@ class InlineParser {
     private fun isComplexBlock(): Boolean {
         return when {
             matchFor('`') -> true
+            matchFor('[') -> true
             else -> false
         }
     }
