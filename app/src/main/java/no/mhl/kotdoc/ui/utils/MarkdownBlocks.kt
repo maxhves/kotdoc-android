@@ -10,6 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,11 +56,7 @@ fun MarkdownHeading(heading: Heading) {
 
 @Composable
 fun MarkdownParagraph(block: Paragraph) {
-    var text = ""
-
-    for (i in block.inlineContent.indices) {
-        text += block.inlineContent[i].content
-    }
+    val text = buildAnnotatedString { appendInlineContent(block.inlineContent) }
 
     Box(
         modifier = Modifier.padding(start = 16.dp, end = 16.dp)
@@ -132,3 +132,23 @@ fun MarkdownNewLine() {
         Spacer(Modifier.height(16.dp))
     }
 }
+
+// region Annotated String
+fun AnnotatedString.Builder.appendInlineContent(inlineContent: List<InlineBlock>) {
+    for (i in inlineContent.indices) {
+        when (val block = inlineContent[i]) {
+            is Link -> {
+                pushStyle(SpanStyle(color = cerulean))
+                append(block.content)
+                pop()
+            }
+            is Code -> {
+                pushStyle(SpanStyle(color = pomegranate))
+                append(block.content)
+                pop()
+            }
+            is Text -> append(block.content)
+        }
+    }
+}
+// endregion
