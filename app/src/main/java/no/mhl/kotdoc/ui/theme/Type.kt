@@ -8,9 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
 
-/**
- * Manrope default font family
- */
+// region Font Families
 val Manrope = FontFamily(
     Font(R.font.manrope_extralight, FontWeight.ExtraLight),
     Font(R.font.manrope_light, FontWeight.Light),
@@ -20,6 +18,11 @@ val Manrope = FontFamily(
     Font(R.font.manrope_bold, FontWeight.Bold),
     Font(R.font.manrope_extrabold, FontWeight.ExtraBold)
 )
+
+val JetBrainsMono = FontFamily(
+    Font(R.font.jet_brains_mono_regular, FontWeight.Normal)
+)
+//endregion
 
 val typography = Typography(defaultFontFamily = Manrope)
 
@@ -50,7 +53,7 @@ val MarkdownBody1 = TextStyle(
 
 val MarkdownCode = TextStyle(
     fontWeight = FontWeight.Normal,
-    fontFamily = FontFamily.Monospace,
-    fontSize = 14.sp
+    fontSize = 14.sp,
+    fontFamily = JetBrainsMono
 )
 // endregion
