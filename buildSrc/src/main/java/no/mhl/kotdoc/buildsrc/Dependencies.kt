@@ -55,4 +55,8 @@ object Libs {
         const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
     }
 
+    object MarkdownParser {
+        const val local = ":markdownparser"
+    }
+
 }

@@ -1,2 +1,3 @@
 rootProject.name = "KotDoc"
 include ':app'
+include ':markdownparser'
