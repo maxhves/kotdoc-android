@@ -15,8 +15,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.data.local.*
 import no.mhl.kotdoc.ui.theme.*
+import no.mhl.markdownparser.*
 
 @Composable
 fun MarkdownBlocks(blocks: List<Block>) {

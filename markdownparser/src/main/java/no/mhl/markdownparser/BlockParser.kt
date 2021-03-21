@@ -1,6 +1,6 @@
-package no.mhl.kotdoc.data.local
+package no.mhl.markdownparser
 
-import no.mhl.kotdoc.data.local.Pattern.*
+import no.mhl.markdownparser.Pattern.*
 
 class BlockParser() {
 

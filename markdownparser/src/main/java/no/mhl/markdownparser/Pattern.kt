@@ -1,4 +1,4 @@
-package no.mhl.kotdoc.data.local
+package no.mhl.markdownparser
 
 enum class Pattern(val literal: String) {
     Heading("^#+\\s*(.*)\$"),

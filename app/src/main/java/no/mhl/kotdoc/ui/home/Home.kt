@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.mhl.kotdoc.R
-import no.mhl.kotdoc.data.local.Block
-import no.mhl.kotdoc.data.local.BlockParser
+import no.mhl.markdownparser.Block
+import no.mhl.markdownparser.BlockParser
 import no.mhl.kotdoc.ui.utils.*
 
 private enum class DocTabs(

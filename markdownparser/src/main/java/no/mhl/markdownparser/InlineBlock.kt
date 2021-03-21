@@ -1,4 +1,4 @@
-package no.mhl.kotdoc.data.local
+package no.mhl.markdownparser
 
 // region Base Inline Block
 open class InlineBlock(
