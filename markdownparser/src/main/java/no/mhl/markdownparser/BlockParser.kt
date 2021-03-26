@@ -48,7 +48,7 @@ class BlockParser() {
         val paragraph = Paragraph("")
 
         while (validIndex && isComplexBlock().not()) {
-            paragraph.content += currentLine
+            paragraph.content += if (paragraph.content.isEmpty()) currentLine else " $currentLine"
             currentIndex++
         }
 
