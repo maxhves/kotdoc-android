@@ -11,7 +11,6 @@ buildscript {
         classpath Libs.androidGradlePlugin
         classpath Libs.Kotlin.gradlePlugin
         classpath Libs.Hilt.daggerHiltPlugin
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30'
     }
 
 }
