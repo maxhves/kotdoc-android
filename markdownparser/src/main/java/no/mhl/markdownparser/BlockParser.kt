@@ -102,11 +102,13 @@ class BlockParser() {
             fullMatch = matchFor(AlertType)
 
             if (fullMatch.not()) {
-                val line = currentLine.replace(">", "")
-                alert.content += line
+                val line = currentLine.removePrefix(">").trim()
+
+                if (line.isNotBlank()) {
+                    alert.content += if (alert.content.isEmpty()) line else " $line"
+                }
             } else {
-                // TODO Create a more sophisticated approach to this
-                val type = currentLine.replace("{type=\"", "").replace("\"}", "")
+                val type = currentLine.removePrefix("{type=\"").removeSuffix("\"}")
                 alert.type = Alert.AlertType.fromString(type)
             }
 
