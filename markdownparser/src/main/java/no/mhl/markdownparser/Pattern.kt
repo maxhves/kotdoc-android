@@ -6,5 +6,6 @@ enum class Pattern(val literal: String) {
     Alert("^>+.*\$"),
     AlertType("^\\{type=\".+\"\\}\$"),
     Paragraph("^.*\$"),
-    PageTitle("(\\[\\/\\/\\]: # \\(title:.+\\))")
+    PageTitle("^(\\[\\/\\/\\]:\\s#\\s\\(title:\\s.+\\))\$"),
+    Bullet("^\\*\\s(.*)\$")
 }

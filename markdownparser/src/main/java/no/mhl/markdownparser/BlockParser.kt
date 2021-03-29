@@ -118,7 +118,13 @@ class BlockParser() {
         alert.inlineContent = InlineParser().parseToInlineBlocks(alert.content)
         appendBlock(alert)
     }
+    // endregion
 
+    // region Bullet Group
+
+    // endregion
+
+    // region Page Title
     private fun parsePageTitle() {
         // TODO Here we can get the page title.
         currentIndex++

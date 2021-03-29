@@ -46,4 +46,10 @@ data class Paragraph(
 data class NewLine(
     override var content: String
 ) : Block(content)
+
+data class BulletGroup(
+    override var content: String
+) : Block(content) {
+    data class BulletedText(val text: String)
+}
 // endregion
