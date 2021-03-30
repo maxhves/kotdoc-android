@@ -1,14 +1,20 @@
 package no.mhl.kotdoc.ui.utils
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -27,6 +33,7 @@ fun MarkdownBlocks(blocks: List<Block>) {
             is Paragraph -> MarkdownParagraph(block)
             is Alert -> MarkdownAlert(block)
             is NewLine -> MarkdownNewLine()
+            is BulletGroup -> MarkdownBulletGroup(block)
         }
     }
 }
@@ -131,6 +138,25 @@ fun MarkdownAlert(alert: Alert) {
 fun MarkdownNewLine() {
     Box {
         Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun MarkdownBulletGroup(block: BulletGroup) {
+    Box(
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+    ) {
+        Column {
+            block.bullets.forEach { bullet ->
+                val text = buildAnnotatedString { appendInlineContent(bullet.inlineContent) }
+                Row {
+                    Canvas(modifier = Modifier.size(3.dp).padding(top = 10.dp), onDraw = {
+                        drawCircle(color = Color.Black, radius = 3.dp.toPx() / 2f)
+                    })
+                    Text(text = text, style = MarkdownBody1, modifier = Modifier.padding(bottom = 8.dp, start = 8.dp))
+                }
+            }
+        }
     }
 }
 

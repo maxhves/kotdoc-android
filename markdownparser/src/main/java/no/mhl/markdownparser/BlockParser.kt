@@ -36,6 +36,7 @@ class BlockParser() {
                 matchFor(Alert) -> parseAlert()
                 matchFor(Heading) -> parseHeading()
                 matchFor(PageTitle) -> parsePageTitle()
+                matchFor(Bullet) -> parseBulletGroup()
                 blankLine() -> parseNewLine()
                 else -> parseParagraph()
             }
@@ -121,7 +122,22 @@ class BlockParser() {
     // endregion
 
     // region Bullet Group
+    private fun parseBulletGroup() {
+        val bullets = mutableListOf<BulletGroup.BulletedText>()
+        val group = BulletGroup("", bullets)
 
+        while (blankLine().not()) {
+            group.content += currentLine
+
+            val bullet = InlineParser().parseToInlineBlocks(currentLine.replace("*", ""))
+            bullets.add(BulletGroup.BulletedText(bullet))
+
+            currentIndex++
+        }
+
+        appendBlock(group)
+        parseNewLine()
+    }
     // endregion
 
     // region Page Title
@@ -139,6 +155,7 @@ class BlockParser() {
             matchFor(Alert) -> true
             matchFor(Heading) -> true
             matchFor(PageTitle) -> true
+            matchFor(Bullet) -> true
             blankLine() -> true
             else -> false
         }

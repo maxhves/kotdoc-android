@@ -48,8 +48,9 @@ data class NewLine(
 ) : Block(content)
 
 data class BulletGroup(
-    override var content: String
+    override var content: String,
+    var bullets: List<BulletedText>
 ) : Block(content) {
-    data class BulletedText(val text: String)
+    data class BulletedText(val inlineContent: List<InlineBlock>)
 }
 // endregion
