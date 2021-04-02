@@ -2,7 +2,8 @@ package no.mhl.markdownparser
 
 // region Base Block
 open class Block(
-    open var content: String
+    open var content: String,
+    open var indented: Boolean = false
 )
 // endregion
 

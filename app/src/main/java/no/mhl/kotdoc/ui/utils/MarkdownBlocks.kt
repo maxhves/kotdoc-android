@@ -29,7 +29,7 @@ fun MarkdownBlocks(blocks: List<Block>) {
     for (i in blocks.indices) {
         when (val block = blocks[i]) {
             is Heading -> MarkdownHeading(block)
-            is FencedCode -> MarkdownCode(block.content)
+            is FencedCode -> MarkdownCode(block)
             is Paragraph -> MarkdownParagraph(block)
             is Alert -> MarkdownAlert(block)
             is NewLine -> MarkdownNewLine()
@@ -72,19 +72,21 @@ fun MarkdownParagraph(block: Paragraph) {
 }
 
 @Composable
-fun MarkdownCode(content: String) {
+fun MarkdownCode(block: FencedCode) {
+    val startPadding = if (block.indented) 32.dp else 16.dp
+
     Card(
         shape = MaterialTheme.shapes.medium,
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp,
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp).fillMaxWidth()
+        modifier = Modifier.padding(start = startPadding, end = 16.dp).fillMaxWidth()
     ) {
         Row(
             Modifier.horizontalScroll(ScrollState(0))
         ) {
             Box(Modifier.padding(16.dp)) {
                 Text(
-                    text = content,
+                    text = block.content,
                     color = mediumPurple,
                     style = MarkdownCode,
                     softWrap = false

@@ -36,7 +36,7 @@ class BlockParser() {
                 matchFor(Alert) -> parseAlert()
                 matchFor(Heading) -> parseHeading()
                 matchFor(PageTitle) -> parsePageTitle()
-                matchFor(Bullet) -> parseBulletGroup()
+                // matchFor(Bullet) -> parseBulletGroup()
                 blankLine() -> parseNewLine()
                 else -> parseParagraph()
             }
@@ -79,13 +79,21 @@ class BlockParser() {
     private fun parseFencedCode() {
         val code = FencedCode("")
         var codeBlockMatches = 0
+        val indented = matchFor(Indentation)
+        code.indented = indented
 
         while (codeBlockMatches < 2) {
             if (matchFor(FencedCode))  {
                 codeBlockMatches++
             } else {
                 val potentialNewLine = if (code.content == "") "" else "\n"
-                code.content += "$potentialNewLine$currentLine"
+                var line = currentLine
+
+                if (indented) {
+                    line = currentLine.removePrefix("  ")
+                }
+
+                code.content += "$potentialNewLine$line"
             }
             currentIndex++
         }
@@ -126,10 +134,10 @@ class BlockParser() {
         val bullets = mutableListOf<BulletGroup.BulletedText>()
         val group = BulletGroup("", bullets)
 
-        while (blankLine().not()) {
+        while (blankLine().not() && matchFor(Indentation).not()) {
             group.content += currentLine
 
-            val bullet = InlineParser().parseToInlineBlocks(currentLine.replace("*", ""))
+            val bullet = InlineParser().parseToInlineBlocks(currentLine.replace("*", "").trim())
             bullets.add(BulletGroup.BulletedText(bullet))
 
             currentIndex++
@@ -155,7 +163,7 @@ class BlockParser() {
             matchFor(Alert) -> true
             matchFor(Heading) -> true
             matchFor(PageTitle) -> true
-            matchFor(Bullet) -> true
+            //matchFor(Bullet) -> true
             blankLine() -> true
             else -> false
         }
