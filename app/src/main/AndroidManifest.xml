@@ -22,7 +22,6 @@
         <!-- region Main Activity -->
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/Theme.KotDoc.NoActionBar"
             android:exported="true">
             <intent-filter>
