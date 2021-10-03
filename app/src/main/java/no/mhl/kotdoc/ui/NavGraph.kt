@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import no.mhl.kotdoc.ui.MainDestinations.HOME_ROUTE
 import no.mhl.kotdoc.ui.MainDestinations.SEARCH_ROUTE
 import no.mhl.kotdoc.ui.MainDestinations.SETTINGS_DETAIL_ROUTE
