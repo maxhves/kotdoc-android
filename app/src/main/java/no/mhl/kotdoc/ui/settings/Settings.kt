@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,14 +18,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import no.mhl.kotdoc.R
+import no.mhl.kotdoc.ui.settings.Settings.*
 import no.mhl.kotdoc.ui.theme.cerulean
 import no.mhl.kotdoc.ui.theme.fuchsiaPink
 import no.mhl.kotdoc.ui.theme.mediumPurple
 import no.mhl.kotdoc.ui.theme.sorbus
-import no.mhl.kotdoc.ui.settings.Settings.THEME
-import no.mhl.kotdoc.ui.settings.Settings.ABOUT
-import no.mhl.kotdoc.ui.settings.Settings.LIBRARIES
-import no.mhl.kotdoc.ui.settings.Settings.FEEDBACK
 
 enum class Settings(
     val id: Int,
