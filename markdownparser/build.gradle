@@ -1,5 +1,3 @@
-import no.mhl.kotdoc.buildsrc.Libs
-
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
@@ -37,6 +35,6 @@ android {
 dependencies {
 
     // Kotlin
-    implementation Libs.Kotlin.ktx
+    implementation "androidx.core:core-ktx:$ktx_version"
 
 }
