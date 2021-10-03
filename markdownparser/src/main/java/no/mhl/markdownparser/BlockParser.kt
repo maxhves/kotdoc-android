@@ -2,7 +2,7 @@ package no.mhl.markdownparser
 
 import no.mhl.markdownparser.Pattern.*
 
-class BlockParser() {
+class BlockParser {
 
     // region Local Properties
     private val blocks: MutableList<Block> = mutableListOf()
