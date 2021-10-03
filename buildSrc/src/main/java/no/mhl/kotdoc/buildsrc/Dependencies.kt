@@ -2,7 +2,7 @@ package no.mhl.kotdoc.buildsrc
 
 object Libs {
 
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha10"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha12"
 
     object Kotlin {
         const val version = "1.4.30"
@@ -41,7 +41,7 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.32-alpha"
+        private const val version = "2.37"
 
         const val daggerHiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val android = "com.google.dagger:hilt-android:$version"
