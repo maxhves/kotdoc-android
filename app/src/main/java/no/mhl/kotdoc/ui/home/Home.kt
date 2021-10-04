@@ -2,23 +2,18 @@ package no.mhl.kotdoc.ui.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import no.mhl.kotdoc.R
 import no.mhl.kotdoc.ui.utils.MarkdownBlocks
-import no.mhl.markdownparser.Block
 import no.mhl.markdownparser.BlockParser
 
 private enum class DocTabs(
@@ -48,8 +43,7 @@ fun Home(
     val tabs = DocTabs.values()
     val actions = DocMenuActions.values()
 
-    // TODO Test Case
-    val doc by model.testGetFile().observeAsState()
+    val viewState by model.state.collectAsState()
 
     Scaffold(
         backgroundColor = MaterialTheme.colors.surface,
@@ -98,13 +92,14 @@ fun Home(
             .padding(16.dp)
             .padding(innerPadding)
 
-        // TODO Test Case
-        doc?.charStream()?.let { reader ->
-            val blocks: List<Block> = BlockParser().parseToBlocks(reader.readLines())
+        val blocks = BlockParser().parseToBlocks(viewState.document)
 
-            Column(Modifier.verticalScroll(ScrollState(0)).padding(innerPadding)) {
-                MarkdownBlocks(blocks)
-            }
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(innerPadding)
+        ) {
+            MarkdownBlocks(blocks)
         }
 
 //        when (selectedTab) {
